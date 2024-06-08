@@ -1,0 +1,319 @@
+.content {
+  display: none;
+}
+
+/* ================================ NAVBAR =========================================== */
+
+.logo-1 {
+  width: 7%; /* Adjust width as needed */
+  height: auto;
+  margin-left: 0;
+}
+
+.logo-2 {
+  width: 10%; /* Adjust width as needed */
+  height: auto;
+}
+
+.navbar-brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Ensure the brand occupies full width to apply space-between properly */
+}
+
+@media (max-width: 768px) {
+  .logo-1,
+  .logo-2 {
+    width: 50%; /* Adjust these values to make sure logos fit well on smaller screens */
+    height: auto;
+  }
+}
+
+/* ================================ SCHOOL'S NAME =========================================== */
+.title {
+  display: block;
+  text-align: center;
+}
+
+.school {
+  color: blue;
+}
+
+.faculty {
+  color: orange;
+}
+
+h2 {
+  font-weight: bold;
+}
+
+/* ================================ PROJECT'S TITLE =========================================== */
+.project-title {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 50px;
+}
+
+.airHandlingUnitSystem {
+  margin: 10rem 0 0 5rem;
+}
+
+.air-handling-unit-damper-open,
+.air-handling-unit-fan-open,
+.air-handling-unit-fan-damper-open {
+  display: none;
+}
+
+/* ================================ SOLENOID VALVE STATUS =========================================== */
+
+.solenoid-valve-card {
+  border: 4px solid #000;
+  width: 10rem;
+  border-radius: 10px;
+  border-color: red;
+  position: relative;
+  margin-left: 14rem;
+  transform: translateY(-250px); /* Adjust the X value as needed */
+  /* transform: translateX(250px); */
+  /* left: 15%; */
+}
+
+.solenoid-valve-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  font-size: 15px;
+  /* padding: 2px 8px; */
+  width: 150px;
+  height: 50px;
+  /* text-align: center; */
+  align-items: center;
+}
+
+/* ================================== BYPASS VALVE STATUS =========================================== */
+
+.bypass-valve-card {
+  border: 4px solid #000;
+  width: 8rem;
+  border-radius: 10px;
+  border-color: red;
+  position: relative;
+  /* top: 60%;
+  left: 27%; */
+  margin-left: 25rem;
+  transform: translateY(-400px);
+}
+
+.bypass-valve-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  font-size: 15px;
+  /* padding: 2px 8px; */
+  width: 120px;
+  height: 50px;
+  /* text-align: center; */
+  align-items: center;
+}
+/* ================================== DAMPER STATUS =========================================== */
+
+.damper-card {
+  border: 4px solid #000;
+  width: 8rem;
+  border-radius: 10px;
+  border-color: red;
+  position: relative;
+  /* top: 60%;
+  left: 27%; */
+  margin-left: 7rem;
+  transform: translateY(-724px);
+}
+
+.damper-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  font-size: 15px;
+  /* padding: 2px 8px; */
+  width: 120px;
+  height: 50px;
+  /* text-align: center; */
+  align-items: center;
+}
+
+/* ================================== TEMPERATURE VALUE =========================================== */
+.temperature-card {
+  border: 4px solid #000;
+  width: 8rem;
+  border-radius: 10px;
+  border-color: #18a4bc;
+  position: relative;
+  /* top: 60%;
+  left: 56%; */
+  margin-left: 52rem;
+  transform: translateY(-460px);
+}
+
+.temperature-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  font-size: 15px;
+  /* padding: 2px 8px; */
+  width: 120px;
+  height: 50px;
+  /* text-align: center; */
+  align-items: center;
+}
+/* ================================== CO2 VALUE =========================================== */
+.co2-card {
+  border: 4px solid #000;
+  width: 8rem;
+  border-radius: 10px;
+  border-color: #ffc404;
+  position: relative;
+  /* top: 69%;
+  left: 56%; */
+  margin-left: 52rem;
+  transform: translateY(-450px);
+}
+
+.co2-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  font-size: 15px;
+  /* padding: 2px 8px; */
+  width: 120px;
+  height: 50px;
+  /* text-align: center; */
+  align-items: center;
+}
+
+/* ================================== PRESSURE VALUE =========================================== */
+.pressure-card {
+  border: 4px solid #000;
+  width: 8rem;
+  border-radius: 10px;
+  border-color: #30a444;
+  position: relative;
+  /* top: 69%;
+  left: 56%; */
+  margin-left: 33rem;
+  transform: translateY(-900px);
+}
+
+.pressure-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  font-size: 15px;
+  /* padding: 2px 8px; */
+  width: 120px;
+  height: 50px;
+  /* text-align: center; */
+  align-items: center;
+}
+
+/* ================================== CENTRIFUGAL FAN VALUE =========================================== */
+.row {
+  position: relative;
+  margin-left: 37vh;
+  transform: translateY(-1000px);
+  width: 30vh;
+  border: 5px solid #30a444;
+  border-radius: 10px;
+  /* border-radius: 10px; */
+}
+
+.col-sm {
+  text-align: center;
+  /* border: 2px solid green; */
+}
+
+.value {
+  text-align: center;
+}
+
+.speed-col {
+  border-right: 5px solid #30a444;
+  border-bottom: 5px solid #30a444;
+}
+
+.hz-col {
+  border-bottom: 5px solid #30a444;
+}
+
+.current-col {
+  border-right: 5px solid #30a444;
+}
+/* LOGOUT BUTTON */
+.logout-button {
+  display: flex;
+  justify-content: flex-end; /* Aligns the button to the end of the container */
+  align-items: center; /* Aligns the button vertically to the center */
+}
+
+/* LOGIN */
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-img {
+  width: 10%;
+  height: auto;
+  margin-left: 100px;
+  margin-top: 100px;
+}
+
+form {
+  margin: 0% 13% 15% 15%;
+  width: 25%;
+}
+
+.btn-submit {
+  display: flex;
+  justify-content: center;
+}
+
+/* TEMPERATURE SETPOINT */
+.temperature-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid black;
+  width: fit-content; /* Ensure the form fits its content */
+  background: #f0f0f0;
+
+  position: relative;
+  transform: translateY(-1100px);
+  margin-left: 1000px;
+}
+
+.input-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Set the width of the wrapper */
+  padding: 10px 10px 0 10px;
+}
+
+input[type="number"],
+.btn-temperature-submit {
+  width: 100%;
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width */
+}
+
+.btn-temperature-submit {
+  margin-top: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.aaa {
+  margin: 0px;
+}
