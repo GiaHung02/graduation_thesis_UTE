@@ -4,6 +4,9 @@ import {
     ref,
     child,
     get,
+    push,
+    update,
+    onValue,
     set
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
@@ -41,14 +44,10 @@ form.addEventListener('submit', function (e) {
     get(child(dbRef, "/login/username"))
         .then((snapshotUsername) => {
             if (snapshotUsername.exists()) {
-                console.log('username: ', snapshotUsername.val());
                 // get password firebase
                 get(child(dbRef, "/login/password"))
                     .then((snapshotPassword) => {
                         if (snapshotPassword.exists()) {
-                            console.log('password: ', snapshotPassword.val());
-                            console.log(username, password);
-
                             if (username.value === snapshotUsername.val() && password.value === snapshotPassword.val()) {
                                 username.value = '';
                                 password.value = '';
@@ -356,3 +355,31 @@ setInterval(() => {
             console.error(error);
         });
 }, 1000);
+
+// ===================================== SETPOINT: TEMPERATURE ================================================
+
+// UPDATE TEMPERATURE SETPOINT
+function updateTemperatureSetpoint(temperatureSetpoint) {
+    const updates = {};
+    updates['/control/setpoint/temperature'] = temperatureSetpoint;
+    update(dbRef, updates);
+}
+
+const temperatureForm = document.querySelector('.temperature-form');
+temperatureForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const temperatureSetpointInput = parseInt(document.querySelector('.temperature-setpoint-input').value);
+    updateTemperatureSetpoint(temperatureSetpointInput);
+    document.querySelector('.temperature-setpoint-input').value = '';
+});
+
+// READ TEMPERATURE SETPOINT
+
+const currentTemperatureSetpoint = document.querySelector('.current-temp-setpoint');
+
+const starCountRef = ref(db, '/control/setpoint/temperature');
+onValue(starCountRef, (snapshot) => {
+    const data = snapshot.val();
+    currentTemperatureSetpoint.innerHTML = data + '<span class="parenthesis"> (°C) </span>';
+
+});
