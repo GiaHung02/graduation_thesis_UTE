@@ -91,6 +91,32 @@ h2 {
   align-items: center;
 }
 
+/* ================================ SOLENOID VALVE STATUS 2=========================================== */
+
+.solenoid-valve-card-2 {
+  border: 4px solid #000;
+  width: 10rem;
+  border-radius: 10px;
+  border-color: red;
+  position: relative;
+  margin-left: 3rem;
+  transform: translateY(-1080px); /* Adjust the X value as needed */
+  /* transform: translateX(250px); */
+  /* left: 15%; */
+}
+
+.solenoid-valve-container-2 {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  font-size: 15px;
+  /* padding: 2px 8px; */
+  width: 150px;
+  height: 50px;
+  /* text-align: center; */
+  align-items: center;
+}
+
 /* ================================== BYPASS VALVE STATUS =========================================== */
 
 .bypass-valve-card {
@@ -271,7 +297,7 @@ h2 {
   margin-top: 100px;
 }
 
-form {
+.login-form {
   margin: 0% 13% 15% 15%;
   width: 25%;
 }
@@ -281,7 +307,7 @@ form {
   justify-content: center;
 }
 
-/* TEMPERATURE SETPOINT */
+/* ====================================== TEMPERATURE SETPOINT ===================================================*/
 .temperature-form {
   display: flex;
   flex-direction: column;
@@ -292,7 +318,7 @@ form {
 
   position: relative;
   transform: translateY(-1100px);
-  margin-left: 1000px;
+  margin-left: 955px;
 }
 
 .input-button-wrapper {
@@ -310,10 +336,83 @@ input[type="number"],
 
 .btn-temperature-submit {
   margin-top: 10px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  margin-bottom: 10px;
+  /* border-top-left-radius: 10px;
+  border-top-right-radius: 10px; */
 }
 
-.aaa {
-  margin: 0px;
+/* ====================================== PRESSURE SETPOINT ===================================================*/
+.pressure-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid black;
+  width: fit-content; /* Ensure the form fits its content */
+  background: #f0f0f0;
+
+  position: relative;
+  transform: translateY(-1224px);
+  margin-left: 1200px;
+}
+
+.input-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Set the width of the wrapper */
+  padding: 10px 10px 0 10px;
+}
+
+input[type="number"],
+.btn-pressure-submit {
+  width: 100%;
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width */
+}
+
+.btn-pressure-submit {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  /* border-top-left-radius: 10px;
+  border-top-right-radius: 10px; */
+  /* border-radius: 10px; */
+}
+
+/* ====================================== CO2 SETPOINT ===================================================*/
+.co2-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 2px solid black;
+  width: fit-content; /* Ensure the form fits its content */
+  background: #f0f0f0;
+
+  position: relative;
+  transform: translateY(-1195px);
+  margin-left: 1200px;
+}
+
+.input-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Set the width of the wrapper */
+  padding: 10px 10px 0 10px;
+}
+
+input[type="number"],
+.btn-co2-submit {
+  width: 100%;
+  box-sizing: border-box; /* Ensures padding and border are included in the element's total width */
+}
+
+.btn-co2-submit {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  /* border-top-left-radius: 10px;
+  border-top-right-radius: 10px; */
+  /* border-radius: 10px; */
+}
+
+/* ====================================== LABEL SETPOINT ===================================================*/
+
+label {
+  font-weight: bold;
 }
