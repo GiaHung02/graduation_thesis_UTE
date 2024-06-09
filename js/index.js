@@ -190,29 +190,35 @@ onValue(damperRef, (snapshot) => {
 // ===================================== TEMPERATURE VALUE ====================================================
 
 const temperatureRef = ref(db, '/monitor/temperature');
+var temperature = 0;
 onValue(temperatureRef, (snapshot) => {
     const data = snapshot.val();
     // console.log(snapshot.val());
     const temperatureValue = document.querySelector('.temperature-value');
     temperatureValue.innerHTML = data + '<span class="parenthesis"> (°C) </span>';
+    temperature = data;
 });
 
 // ===================================== CO2 VALUE ====================================================
 const co2Ref = ref(db, '/monitor/CO2');
+var co2 = 0;
 onValue(co2Ref, (snapshot) => {
     const data = snapshot.val();
     // console.log(snapshot.val());
     const co2Value = document.querySelector('.co2-value');
     co2Value.innerHTML = data + '<span class="parenthesis"> (Ppm) </span>';
+    co2 = data;
 });
 
 // ===================================== PRESSURE VALUE ====================================================
 const pressureRef = ref(db, '/monitor/pressure');
+var pressure = 0
 onValue(pressureRef, (snapshot) => {
     const data = snapshot.val();
     // console.log(snapshot.val());
     const pressureValue = document.querySelector('.pressure-value');
     pressureValue.innerHTML = data + '<span class="parenthesis"> (Pa) </span>';
+    pressure = data;
 });
 
 // ===================================== CENTRIFUGAL FAN: SPEED ====================================================
@@ -290,10 +296,12 @@ temperatureForm.addEventListener('submit', function (e) {
 
 // READ TEMPERATURE SETPOINT
 const currentTemperatureSetpoint = document.querySelector('.current-temp-setpoint');
+var temperatureSetpoint = 0;
 const temperatureSetpointRef = ref(db, '/control/setpoint/temperature');
 onValue(temperatureSetpointRef, (snapshot) => {
     const data = snapshot.val();
     currentTemperatureSetpoint.innerHTML = data + '<span class="parenthesis"> (°C) </span>';
+    temperatureSetpoint = data;
 });
 
 // ===================================== SETPOINT: PRESSURE ================================================
@@ -335,16 +343,18 @@ pressureForm.addEventListener('submit', function (e) {
 
 });
 
-// READ TEMPERATURE SETPOINT
+// READ PRESSURE SETPOINT
 const currentPressureSetpoint = document.querySelector('.current-pressure-setpoint');
+var pressureSetpoint = 0;
 const pressureSetpointRef = ref(db, '/control/setpoint/pressure');
 onValue(pressureSetpointRef, (snapshot) => {
     const data = snapshot.val();
     currentPressureSetpoint.innerHTML = data + '<span class="parenthesis"> (Pa) </span>';
+    pressureSetpoint = data;
 });
 // ===================================== SETPOINT: CO2 ================================================
 
-// UPDATE TEMPERATURE SETPOINT
+// UPDATE CO2 SETPOINT
 function updateCo2Setpoint(co2Setpoint) {
     const updates = {};
     updates['/control/setpoint/co2'] = co2Setpoint;
@@ -383,10 +393,45 @@ co2Form.addEventListener('submit', function (e) {
 
 // READ CO2 SETPOINT
 const currentCo2Setpoint = document.querySelector('.current-co2-setpoint');
+var co2Setpoint = 0;
 const co2SetpointRef = ref(db, '/control/setpoint/co2');
 onValue(co2SetpointRef, (snapshot) => {
     const data = snapshot.val();
     currentCo2Setpoint.innerHTML = data + '<span class="parenthesis"> (Ppm) </span>';
+    co2Setpoint = data;
 });
 
-// ===================================== ALERT ================================================
+// ===================================== ANIMATION: BLINK ================================================
+const updateBlink = () => {
+    // Temperature
+    const temperatureCard = document.querySelector('.temperature-card');
+    if (temperature < temperatureSetpoint || temperature > temperatureSetpoint) {
+        temperatureCard.style.borderColor = 'red';
+        temperatureCard.classList.add('blink');
+    } else {
+        temperatureCard.style.borderColor = '#18a4bc';
+        temperatureCard.classList.remove('blink');
+    }
+
+    // Pressure
+    const pressureCard = document.querySelector('.pressure-card');
+    if (pressure < pressureSetpoint || pressure > pressureSetpoint) {
+        pressureCard.style.borderColor = 'red';
+        pressureCard.classList.add('blink');
+    } else {
+        pressureCard.style.borderColor = '#30a444';
+        pressureCard.classList.remove('blink');
+    }
+
+    // Co2
+    const co2Card = document.querySelector('.co2-card');
+    if (co2 < co2Setpoint || co2 > co2Setpoint) {
+        co2Card.style.borderColor = 'red';
+        co2Card.classList.add('blink');
+    } else {
+        co2Card.style.borderColor = '#ffc404';
+        co2Card.classList.remove('blink');
+    }
+}
+
+setInterval(updateBlink, 1000);
