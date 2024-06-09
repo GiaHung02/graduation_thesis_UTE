@@ -4,6 +4,9 @@ import {
     ref,
     child,
     get,
+    push,
+    update,
+    onValue,
     set
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
@@ -41,14 +44,10 @@ form.addEventListener('submit', function (e) {
     get(child(dbRef, "/login/username"))
         .then((snapshotUsername) => {
             if (snapshotUsername.exists()) {
-                console.log('username: ', snapshotUsername.val());
                 // get password firebase
                 get(child(dbRef, "/login/password"))
                     .then((snapshotPassword) => {
                         if (snapshotPassword.exists()) {
-                            console.log('password: ', snapshotPassword.val());
-                            console.log(username, password);
-
                             if (username.value === snapshotUsername.val() && password.value === snapshotPassword.val()) {
                                 username.value = '';
                                 password.value = '';
@@ -119,240 +118,275 @@ document.getElementById('logout-button').addEventListener('click', (e) => {
     });
 });
 
-// ===================================== SOLENOID VALVE ====================================================
-setInterval(() => {
-    get(child(dbRef, "/monitor/solenoidValve-1/status"))
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                // console.log(snapshot.val());
-                const solenoidValveStatus = document.querySelector('.solenoid-valve-status');
-                // console.log(typeof snapshot.val());
-                const solenoidCard = document.querySelector('.solenoid-valve-card');
+// ===================================== SOLENOID VALVE 1 ====================================================
+const solenoidValveStatus = document.querySelector('.solenoid-valve-status');
+const solenoidCard = document.querySelector('.solenoid-valve-card');
+const solenoidValveRef = ref(db, '/monitor/solenoidValve-1/status');
+onValue(solenoidValveRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data === 1) {
+        solenoidValveStatus.innerHTML = "On";
+        solenoidCard.style.borderColor = '#30a444';
+    } else {
+        solenoidValveStatus.innerHTML = "Off";
+        solenoidCard.style.borderColor = 'red';
+    }
+});
 
-                if (snapshot.val() === 1) {
-                    solenoidValveStatus.innerHTML = "On";
-                    solenoidCard.style.borderColor = '#30a444';
-                } else {
-                    solenoidValveStatus.innerHTML = "Off";
-                    solenoidCard.style.borderColor = 'red';
-                }
-            } else {
-                console.log("No data available");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-}, 1000);
-
-setInterval(() => {
-    get(child(dbRef, "/monitor/solenoidValve-2/status"))
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                // console.log(snapshot.val());
-                const solenoidValveStatus = document.querySelector('.solenoid-valve-status');
-                // console.log(typeof snapshot.val());
-                const solenoidCard = document.querySelector('.solenoid-valve-card');
-
-                if (snapshot.val() === 1) {
-                    solenoidValveStatus.innerHTML = "On";
-                    solenoidCard.style.borderColor = '#30a444';
-                } else {
-                    solenoidValveStatus.innerHTML = "Off";
-                    solenoidCard.style.borderColor = 'red';
-                }
-            } else {
-                console.log("No data available");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-}, 1000);
-
-
+// ===================================== SOLENOID VALVE 2 ====================================================
+const solenoidValveStatus2 = document.querySelector('.solenoid-valve-status-2');
+const solenoidCard2 = document.querySelector('.solenoid-valve-card-2');
+const solenoidValveRef2 = ref(db, '/monitor/solenoidValve-2/status');
+onValue(solenoidValveRef2, (snapshot) => {
+    const data = snapshot.val();
+    if (data === 1) {
+        solenoidValveStatus2.innerHTML = "On";
+        solenoidCard2.style.borderColor = '#30a444';
+    } else {
+        solenoidValveStatus2.innerHTML = "Off";
+        solenoidCard2.style.borderColor = 'red';
+    }
+});
 
 // ===================================== BYPASS VALVE ====================================================
-setInterval(() => {
-    get(child(dbRef, "/monitor/bypassValve/status"))
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                // console.log(snapshot.val());
-                const bypassValveStatus = document.querySelector('.bypass-valve-status');
-                // console.log(typeof snapshot.val());
-                const bypassCard = document.querySelector('.bypass-valve-card');
 
-                if (snapshot.val() === 1) {
-                    bypassValveStatus.innerHTML = "On";
-                    bypassCard.style.borderColor = '#30a444';
-                } else {
-                    bypassValveStatus.innerHTML = "Off";
-                    bypassCard.style.borderColor = 'red';
-                }
-            } else {
-                console.log("No data available");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-}, 1000);
+const bypassValveRef = ref(db, '/monitor/bypassValve/status');
+onValue(bypassValveRef, (snapshot) => {
+    const data = snapshot.val();
+    // console.log(snapshot.val());
+    const bypassValveStatus = document.querySelector('.bypass-valve-status');
+    // console.log(typeof snapshot.val());
+    const bypassCard = document.querySelector('.bypass-valve-card');
+
+    if (data === 1) {
+        bypassValveStatus.innerHTML = "On";
+        bypassCard.style.borderColor = '#30a444';
+    } else {
+        bypassValveStatus.innerHTML = "Off";
+        bypassCard.style.borderColor = 'red';
+    }
+});
 
 // ===================================== DAMPER ====================================================
-setInterval(() => {
-    get(child(dbRef, "/monitor/damper/status"))
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                // console.log(snapshot.val());
-                const damperStatus = document.querySelector('.damper-status');
-                // console.log(typeof snapshot.val());
-                const damperCard = document.querySelector('.damper-card');
 
-                if (snapshot.val() === 1) {
-                    damperStatus.innerHTML = "On";
-                    damperCard.style.borderColor = '#30a444';
-                } else {
-                    damperStatus.innerHTML = "Off";
-                    damperCard.style.borderColor = 'red';
-                }
-            } else {
-                console.log("No data available");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-}, 1000);
+const damperRef = ref(db, '/monitor/damper/status');
+onValue(damperRef, (snapshot) => {
+    const data = snapshot.val();
+    // console.log(snapshot.val());
+    const damperStatus = document.querySelector('.damper-status');
+    // console.log(typeof snapshot.val());
+    const damperCard = document.querySelector('.damper-card');
+
+    if (data === 1) {
+        damperStatus.innerHTML = "On";
+        damperCard.style.borderColor = '#30a444';
+    } else {
+        damperStatus.innerHTML = "Off";
+        damperCard.style.borderColor = 'red';
+    }
+});
 
 
 // ===================================== TEMPERATURE VALUE ====================================================
-setInterval(() => {
-    get(child(dbRef, "/monitor/temperature"))
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                // console.log(snapshot.val());
-                const temperatureValue = document.querySelector('.temperature-value');
-                temperatureValue.innerHTML = snapshot.val() + '<span class="parenthesis"> (°C) </span>';
 
-            } else {
-                console.log("No data available");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-}, 1000);
+const temperatureRef = ref(db, '/monitor/temperature');
+onValue(temperatureRef, (snapshot) => {
+    const data = snapshot.val();
+    // console.log(snapshot.val());
+    const temperatureValue = document.querySelector('.temperature-value');
+    temperatureValue.innerHTML = data + '<span class="parenthesis"> (°C) </span>';
+});
 
 // ===================================== CO2 VALUE ====================================================
-setInterval(() => {
-    get(child(dbRef, "/monitor/CO2"))
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                // console.log(snapshot.val());
-                const co2Value = document.querySelector('.co2-value');
-                co2Value.innerHTML = snapshot.val() + '<span class="parenthesis"> (Ppm) </span>';
-
-            } else {
-                console.log("No data available");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-}, 1000);
-
+const co2Ref = ref(db, '/monitor/CO2');
+onValue(co2Ref, (snapshot) => {
+    const data = snapshot.val();
+    // console.log(snapshot.val());
+    const co2Value = document.querySelector('.co2-value');
+    co2Value.innerHTML = data + '<span class="parenthesis"> (Ppm) </span>';
+});
 
 // ===================================== PRESSURE VALUE ====================================================
-setInterval(() => {
-    get(child(dbRef, "/monitor/pressure"))
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                // console.log(snapshot.val());
-                const pressureValue = document.querySelector('.pressure-value');
-                pressureValue.innerHTML = snapshot.val() + '<span class="parenthesis"> (Pa) </span>';
-
-            } else {
-                console.log("No data available");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-}, 1000);
+const pressureRef = ref(db, '/monitor/pressure');
+onValue(pressureRef, (snapshot) => {
+    const data = snapshot.val();
+    // console.log(snapshot.val());
+    const pressureValue = document.querySelector('.pressure-value');
+    pressureValue.innerHTML = data + '<span class="parenthesis"> (Pa) </span>';
+});
 
 // ===================================== CENTRIFUGAL FAN: SPEED ====================================================
-
-setInterval(() => {
-    get(child(dbRef, "/monitor/centrifugalFan/speed"))
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                // console.log(snapshot.val());
-                const speedValue = document.querySelector('.speed-value');
-                speedValue.innerHTML = snapshot.val() + '<span class="parenthesis"> (rpm) </span>';
-
-            } else {
-                console.log("No data available");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-}, 1000);
+const centrifugalFanSpeedRef = ref(db, '/monitor/centrifugalFan/speed');
+onValue(centrifugalFanSpeedRef, (snapshot) => {
+    const data = snapshot.val();
+    // console.log(snapshot.val());
+    const speedValue = document.querySelector('.speed-value');
+    speedValue.innerHTML = data + '<span class="parenthesis"> (rpm) </span>';
+});
 
 // ===================================== CENTRIFUGAL FAN: Frequency ================================================
-
-setInterval(() => {
-    get(child(dbRef, "/monitor/centrifugalFan/frequency"))
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                // console.log(snapshot.val());
-                const frequencyValue = document.querySelector('.hz-value');
-                frequencyValue.innerHTML = snapshot.val() + '<span class="parenthesis"> (Hz) </span>';
-
-            } else {
-                console.log("No data available");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-}, 1000);
-
+const centrifugalFanFrequencyRef = ref(db, '/monitor/centrifugalFan/frequency');
+onValue(centrifugalFanFrequencyRef, (snapshot) => {
+    const data = snapshot.val();
+    // console.log(snapshot.val());
+    const frequencyValue = document.querySelector('.hz-value');
+    frequencyValue.innerHTML = data + '<span class="parenthesis"> (Hz) </span>';
+});
 
 // ===================================== CENTRIFUGAL FAN: Current ================================================
-
-setInterval(() => {
-    get(child(dbRef, "/monitor/centrifugalFan/current"))
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                // console.log(snapshot.val());
-                const currentValue = document.querySelector('.current-value');
-                currentValue.innerHTML = snapshot.val() + '<span class="parenthesis"> (A) </span>';
-
-            } else {
-                console.log("No data available");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-}, 1000);
+const centrifugalFanCurrentRef = ref(db, '/monitor/centrifugalFan/current');
+onValue(centrifugalFanCurrentRef, (snapshot) => {
+    const data = snapshot.val();
+    // console.log(snapshot.val());
+    const currentValue = document.querySelector('.current-value');
+    currentValue.innerHTML = data + '<span class="parenthesis"> (A) </span>';
+});
 
 // ===================================== CENTRIFUGAL FAN: Voltage ================================================
+const centrifugalFanVoltageRef = ref(db, '/monitor/centrifugalFan/voltage');
+onValue(centrifugalFanVoltageRef, (snapshot) => {
+    const data = snapshot.val();
+    // console.log(snapshot.val());
+    const voltageValue = document.querySelector('.voltage-value');
+    voltageValue.innerHTML = data + '<span class="parenthesis"> (V) </span>';
+});
+// ===================================== SETPOINT: TEMPERATURE ================================================
 
-setInterval(() => {
-    get(child(dbRef, "/monitor/centrifugalFan/voltage"))
-        .then((snapshot) => {
-            if (snapshot.exists()) {
-                // console.log(snapshot.val());
-                const voltageValue = document.querySelector('.voltage-value');
-                voltageValue.innerHTML = snapshot.val() + '<span class="parenthesis"> (V) </span>';
+// UPDATE TEMPERATURE SETPOINT
+function updateTemperatureSetpoint(temperatureSetpoint) {
+    const updates = {};
+    updates['/control/setpoint/temperature'] = temperatureSetpoint;
+    update(dbRef, updates);
+}
 
-            } else {
-                console.log("No data available");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-}, 1000);
+const temperatureForm = document.querySelector('.temperature-form');
+
+temperatureForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You will be logged out!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, log me out!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Handle the logout process here
+            Swal.fire(
+                'Logged Out!',
+                'You have been logged out.',
+                'success'
+            ).then(() => {
+                const temperatureSetpointInput = parseInt(document.querySelector('.temperature-setpoint-input').value);
+                updateTemperatureSetpoint(temperatureSetpointInput);
+                document.querySelector('.temperature-setpoint-input').value = '';
+            });
+        }
+    });
+
+});
+
+// READ TEMPERATURE SETPOINT
+const currentTemperatureSetpoint = document.querySelector('.current-temp-setpoint');
+const temperatureSetpointRef = ref(db, '/control/setpoint/temperature');
+onValue(temperatureSetpointRef, (snapshot) => {
+    const data = snapshot.val();
+    currentTemperatureSetpoint.innerHTML = data + '<span class="parenthesis"> (°C) </span>';
+});
+
+// ===================================== SETPOINT: PRESSURE ================================================
+
+// UPDATE TEMPERATURE SETPOINT
+function updatePressureSetpoint(pressureSetpoint) {
+    const updates = {};
+    updates['/control/setpoint/pressure'] = pressureSetpoint;
+    update(dbRef, updates);
+}
+
+const pressureForm = document.querySelector('.pressure-form');
+pressureForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You will be logged out!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, log me out!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Handle the logout process here
+            Swal.fire(
+                'Logged Out!',
+                'You have been logged out.',
+                'success'
+            ).then(() => {
+                const pressureSetpointInput = parseInt(document.querySelector('.pressure-setpoint-input').value);
+                updatePressureSetpoint(pressureSetpointInput);
+                document.querySelector('.pressure-setpoint-input').value = '';
+            });
+        }
+    });
+
+
+});
+
+// READ TEMPERATURE SETPOINT
+const currentPressureSetpoint = document.querySelector('.current-pressure-setpoint');
+const pressureSetpointRef = ref(db, '/control/setpoint/pressure');
+onValue(pressureSetpointRef, (snapshot) => {
+    const data = snapshot.val();
+    currentPressureSetpoint.innerHTML = data + '<span class="parenthesis"> (Pa) </span>';
+});
+// ===================================== SETPOINT: CO2 ================================================
+
+// UPDATE TEMPERATURE SETPOINT
+function updateCo2Setpoint(co2Setpoint) {
+    const updates = {};
+    updates['/control/setpoint/co2'] = co2Setpoint;
+    update(dbRef, updates);
+}
+
+const co2Form = document.querySelector('.co2-form');
+co2Form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You will be logged out!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, log me out!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Handle the logout process here
+            Swal.fire(
+                'Logged Out!',
+                'You have been logged out.',
+                'success'
+            ).then(() => {
+                const co2SetpointInput = parseInt(document.querySelector('.co2-setpoint-input').value);
+                updateCo2Setpoint(co2SetpointInput);
+                document.querySelector('.co2-setpoint-input').value = '';
+            });
+        }
+    });
+
+
+});
+
+// READ CO2 SETPOINT
+const currentCo2Setpoint = document.querySelector('.current-co2-setpoint');
+const co2SetpointRef = ref(db, '/control/setpoint/co2');
+onValue(co2SetpointRef, (snapshot) => {
+    const data = snapshot.val();
+    currentCo2Setpoint.innerHTML = data + '<span class="parenthesis"> (Ppm) </span>';
+});
+
+// ===================================== ALERT ================================================

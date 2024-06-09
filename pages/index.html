@@ -143,20 +143,20 @@
           <!-- Centrifugal Fan -->
           <div class="row">
             <div class="col-sm speed-col">
-              Speed
+              <b>Speed</b>
               <div class="value speed-value">21</div>
             </div>
             <div class="col-sm hz-col">
-              Frequency
+              <b> Frequency </b>
               <div class="value hz-value">20</div>
             </div>
             <div class="w-100"></div>
             <div class="col-sm current-col">
-              Current
+              <b> Current </b>
               <div class="value current-value">10</div>
             </div>
             <div class="col-sm voltage-col">
-              Voltage
+              <b> Voltage </b>
               <div class="value voltage-value">50</div>
             </div>
           </div>
@@ -174,10 +174,13 @@
                   <input
                     type="number"
                     placeholder="Enter temperature setpoint"
+                    class="temperature-setpoint-input"
+                    min="0"
+                    required
                   />
                   <button
                     type="submit"
-                    class="btn-temperature-submit btn-primary"
+                    class="btn-temperature-submit btn btn-primary"
                   >
                     Submit
                   </button>
@@ -185,10 +188,59 @@
               </form>
             </div>
             <div id="pressure-setpont">
-              <form action="" class="pressure-form"></form>
+              <form action="" class="pressure-form">
+                <label for="pressure"
+                  >Pressure Setpoint
+                  <span class="current-pressure-setpoint"
+                    >0 &#40;Pa&#41;</span
+                  ></label
+                >
+                <div class="input-button-wrapper">
+                  <input
+                    type="number"
+                    placeholder="Enter pressure setpoint"
+                    class="pressure-setpoint-input"
+                    min="0"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    class="btn-pressure-submit btn btn-success"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </form>
             </div>
             <div id="co2-setpoint">
-              <form action="" class="co2-form"></form>
+              <form action="" class="co2-form">
+                <label for="co2"
+                  >CO2 Setpoint
+                  <span class="current-co2-setpoint"
+                    >0 &#40;Ppm&#41;</span
+                  ></label
+                >
+                <div class="input-button-wrapper">
+                  <input
+                    type="number"
+                    placeholder="Enter co2 setpoint"
+                    class="co2-setpoint-input"
+                    min="0"
+                    required
+                  />
+                  <button type="submit" class="btn-co2-submit btn btn-warning">
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Solenoid Valve 2-->
+            <div class="solenoid-valve-card-2">
+              <div class="solenoid-valve-container-2">
+                <b>Solenoid Valve 2</b>
+                <p>Status: <span class="solenoid-valve-status-2">Off</span></p>
+              </div>
             </div>
           </div>
           <!-- <div class="row">
@@ -226,13 +278,7 @@
         ></div>
         <br />
         <div class="btn-submit">
-          <button
-            type="submit"
-            class="btn btn-primary submit"
-            onclick="login()"
-          >
-            Login
-          </button>
+          <button type="submit" class="btn btn-primary submit">Login</button>
         </div>
       </form>
     </div>
