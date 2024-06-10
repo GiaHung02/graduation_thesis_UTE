@@ -50,6 +50,89 @@
           <div class="logout-button">
             <button id="logout-button" class="btn btn-danger">Logout</button>
           </div>
+          <div class="row row-setpoint">
+            <div class="col-sm-2">
+              <div id="temperature-setpoint">
+                <form action="" class="temperature-form">
+                  <label for="temperature" class="label-setpoint"
+                    >Temperature Setpoint
+                    <span class="current-temp-setpoint"
+                      >0 &#40;<sup>o</sup>C&#41;</span
+                    ></label
+                  >
+                  <div class="input-button-wrapper">
+                    <input
+                      type="number"
+                      placeholder="Enter temperature setpoint"
+                      class="temperature-setpoint-input"
+                      min="0"
+                      required
+                    />
+                    <button
+                      type="submit"
+                      class="btn-temperature-submit btn btn-primary"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div id="pressure-setpont">
+                <form action="" class="pressure-form">
+                  <label for="pressure" class="label-setpoint"
+                    >Pressure Setpoint
+                    <span class="current-pressure-setpoint"
+                      >0 &#40;Pa&#41;</span
+                    ></label
+                  >
+                  <div class="input-button-wrapper">
+                    <input
+                      type="number"
+                      placeholder="Enter pressure setpoint"
+                      class="pressure-setpoint-input"
+                      min="0"
+                      required
+                    />
+                    <button
+                      type="submit"
+                      class="btn-pressure-submit btn btn-success"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div id="co2-setpoint">
+                <form action="" class="co2-form">
+                  <label for="co2" class="label-setpoint"
+                    >CO2 Setpoint
+                    <span class="current-co2-setpoint"
+                      >0 &#40;Ppm&#41;</span
+                    ></label
+                  >
+                  <div class="input-button-wrapper">
+                    <input
+                      type="number"
+                      placeholder="Enter co2 setpoint"
+                      class="co2-setpoint-input"
+                      min="0"
+                      required
+                    />
+                    <button
+                      type="submit"
+                      class="btn-co2-submit btn btn-warning"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
           <div class="img-container">
             <img
               src="../img/components/ahuuuu.png"
@@ -141,7 +224,7 @@
           </div>
 
           <!-- Centrifugal Fan -->
-          <div class="row">
+          <div class="row row-centrifugal-fan">
             <div class="col-sm speed-col">
               <b>Speed</b>
               <div class="value speed-value">21</div>
@@ -162,79 +245,6 @@
           </div>
 
           <div class="setpoint">
-            <div id="temperature-setpoint">
-              <form action="" class="temperature-form">
-                <label for="temperature" class="label-setpoint"
-                  >Temperature Setpoint
-                  <span class="current-temp-setpoint"
-                    >0 &#40;<sup>o</sup>C&#41;</span
-                  ></label
-                >
-                <div class="input-button-wrapper">
-                  <input
-                    type="number"
-                    placeholder="Enter temperature setpoint"
-                    class="temperature-setpoint-input"
-                    min="0"
-                    required
-                  />
-                  <button
-                    type="submit"
-                    class="btn-temperature-submit btn btn-primary"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
-            </div>
-            <div id="pressure-setpont">
-              <form action="" class="pressure-form">
-                <label for="pressure" class="label-setpoint"
-                  >Pressure Setpoint
-                  <span class="current-pressure-setpoint"
-                    >0 &#40;Pa&#41;</span
-                  ></label
-                >
-                <div class="input-button-wrapper">
-                  <input
-                    type="number"
-                    placeholder="Enter pressure setpoint"
-                    class="pressure-setpoint-input"
-                    min="0"
-                    required
-                  />
-                  <button
-                    type="submit"
-                    class="btn-pressure-submit btn btn-success"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </form>
-            </div>
-            <div id="co2-setpoint">
-              <form action="" class="co2-form">
-                <label for="co2" class="label-setpoint"
-                  >CO2 Setpoint
-                  <span class="current-co2-setpoint"
-                    >0 &#40;Ppm&#41;</span
-                  ></label
-                >
-                <div class="input-button-wrapper">
-                  <input
-                    type="number"
-                    placeholder="Enter co2 setpoint"
-                    class="co2-setpoint-input"
-                    min="0"
-                    required
-                  />
-                  <button type="submit" class="btn-co2-submit btn btn-warning">
-                    Submit
-                  </button>
-                </div>
-              </form>
-            </div>
-
             <!-- Solenoid Valve 2-->
             <div class="solenoid-valve-card-2">
               <div class="solenoid-valve-container-2">
@@ -245,6 +255,16 @@
           </div>
           <!-- <div class="row">
           </div> -->
+        </div>
+        <div class="btn-on-off">
+          <div class="d-flex">
+            <button class="btn-on"></button>
+            <p>On</p>
+          </div>
+          <div class="d-flex">
+            <button class="btn-off"></button>
+            <p>Off</p>
+          </div>
         </div>
       </section>
     </div>

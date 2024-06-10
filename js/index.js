@@ -435,3 +435,55 @@ const updateBlink = () => {
 }
 
 setInterval(updateBlink, 1000);
+
+// ===================================== BUTTON: ON/OFF ================================================
+const btnOn = document.querySelector('.btn-on');
+const btnOff = document.querySelector('.btn-off');
+var onOffToggle = false;
+
+
+// GET DATA TO SHOW STATUS ON OFF
+get(child(dbRef, `/control/on-off`)).then((snapshot) => {
+    if (snapshot.exists()) {
+        if (snapshot.val() === 1) {
+            document.querySelector('.btn-on').style.backgroundColor = 'green';
+        } else {
+            document.querySelector('.btn-off').style.backgroundColor = 'red';
+        }
+    } else {
+        console.log("No data available");
+    }
+}).catch((error) => {
+    console.error(error);
+});
+
+
+// UPDATING DATA
+const btnOnFunction = () => {
+    // onOffToggle = !onOffToggle;
+
+    const updates = {};
+    updates[`/control/on-off`] = 1;
+    update(dbRef, updates);
+}
+
+const btnOffFunction = () => {
+    const updates = {};
+    updates[`/control/on-off`] = 0;
+    update(dbRef, updates);
+}
+
+btnOn.addEventListener('click', () => {
+    // onOffToggle = !onOffToggle;
+    document.querySelector('.btn-on').style.backgroundColor = 'green';
+    document.querySelector('.btn-off').style.backgroundColor = 'grey';
+    btnOnFunction();
+});
+
+btnOff.addEventListener('click', () => {
+    // onOffToggle = !onOffToggle;
+    document.querySelector('.btn-on').style.backgroundColor = 'grey';
+    document.querySelector('.btn-off').style.backgroundColor = 'red';
+    btnOffFunction();
+});
+

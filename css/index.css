@@ -100,7 +100,7 @@ h2 {
   border-color: red;
   position: relative;
   margin-left: 3rem;
-  transform: translateY(-1080px); /* Adjust the X value as needed */
+  transform: translateY(-707px); /* Adjust the X value as needed */
   /* transform: translateX(250px); */
   /* left: 15%; */
 }
@@ -243,7 +243,7 @@ h2 {
 }
 
 /* ================================== CENTRIFUGAL FAN VALUE =========================================== */
-.row {
+.row-centrifugal-fan {
   position: relative;
   margin-left: 37vh;
   transform: translateY(-1000px);
@@ -307,38 +307,41 @@ h2 {
   justify-content: center;
 }
 
+/* ====================================== ROW SETPOINT ===================================================*/
+/* .row-setpoint {
+  position: -webkit-sticky;
+} */
+
 /* ====================================== TEMPERATURE SETPOINT ===================================================*/
 .temperature-form {
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 2px solid black;
-  width: fit-content; /* Ensure the form fits its content */
+  width: fit-content;
   background: #f0f0f0;
 
-  position: relative;
+  /* position: relative;
   transform: translateY(-1100px);
-  margin-left: 955px;
+  margin-left: 955px; */
 }
 
 .input-button-wrapper {
   display: flex;
   flex-direction: column;
-  width: 100%; /* Set the width of the wrapper */
+  width: 100%;
   padding: 10px 10px 0 10px;
 }
 
 input[type="number"],
 .btn-temperature-submit {
   width: 100%;
-  box-sizing: border-box; /* Ensures padding and border are included in the element's total width */
+  box-sizing: border-box;
 }
 
 .btn-temperature-submit {
   margin-top: 10px;
   margin-bottom: 10px;
-  /* border-top-left-radius: 10px;
-  border-top-right-radius: 10px; */
 }
 
 /* ====================================== PRESSURE SETPOINT ===================================================*/
@@ -350,9 +353,9 @@ input[type="number"],
   width: fit-content; /* Ensure the form fits its content */
   background: #f0f0f0;
 
-  position: relative;
+  /* position: relative;
   transform: translateY(-1224px);
-  margin-left: 1200px;
+  margin-left: 1200px; */
 }
 
 .input-button-wrapper {
@@ -384,10 +387,10 @@ input[type="number"],
   border: 2px solid black;
   width: fit-content; /* Ensure the form fits its content */
   background: #f0f0f0;
-
-  position: relative;
+  margin-right: 0px;
+  /* position: relative;
   transform: translateY(-1195px);
-  margin-left: 1200px;
+  margin-left: 1200px; */
 }
 
 .input-button-wrapper {
@@ -406,9 +409,6 @@ input[type="number"],
 .btn-co2-submit {
   margin-top: 10px;
   margin-bottom: 10px;
-  /* border-top-left-radius: 10px;
-  border-top-right-radius: 10px; */
-  /* border-radius: 10px; */
 }
 
 /* ====================================== LABEL SETPOINT ===================================================*/
@@ -430,4 +430,39 @@ input[type="number"],
 
 .blink {
   animation: blink 1s infinite;
+}
+
+/* ====================================== BUTTON: ON-OFF ===================================================*/
+.btn-on-off {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  position: relative;
+  transform: translateY(-1300px);
+  margin-left: 1400px;
+  border: 2px solid black;
+  padding-top: 15px;
+}
+.d-flex {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.btn-off,
+.btn-on {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btn-on {
+  background-color: grey;
+}
+.btn-off {
+  background-color: grey;
 }
