@@ -471,8 +471,8 @@ onValue(onOffModeRef, (snapshot) => {
 
         document.querySelector('#datetimepicker-start-time').disabled = false;
         document.querySelector('#datetimepicker-end-time').disabled = false;
-        document.querySelector('.btn-on-time').disabled = false;
-        document.querySelector('.btn-off-time').disabled = false;
+        document.querySelector('.btn-time').disabled = false;
+
 
         // 
     } else {
@@ -484,8 +484,7 @@ onValue(onOffModeRef, (snapshot) => {
         document.querySelector('.btn-manual').disabled = true;
         document.querySelector('#datetimepicker-start-time').disabled = true;
         document.querySelector('#datetimepicker-end-time').disabled = true;
-        document.querySelector('.btn-on-time').disabled = true;
-        document.querySelector('.btn-off-time').disabled = true;
+        document.querySelector('.btn-time').disabled = true;
 
 
         // OFF ALL THE COMPONENTS
@@ -559,14 +558,13 @@ onValue(autoModeRef, (snapshot) => {
     if (data === 1) {
         document.querySelector('.btn-auto').style.backgroundColor = 'green';
         document.querySelector('.btn-manual').style.backgroundColor = 'black';
-        document.querySelector('.start-time-pickr').style.display = 'block';
-        document.querySelector('.end-time-pickr').style.display = 'block';
+        document.querySelector('.time-selection-pickr').style.display = 'block';
 
     } else {
         document.querySelector('.btn-auto').style.backgroundColor = 'black';
         document.querySelector('.btn-manual').style.backgroundColor = 'green';
-        document.querySelector('.start-time-pickr').style.display = 'none';
-        document.querySelector('.end-time-pickr').style.display = 'none';
+        document.querySelector('.time-selection-pickr').style.display = 'none';
+
     }
 });
 
@@ -646,15 +644,17 @@ manualForm.addEventListener('submit', function (e) {
 
 // ===================================== FLATPICKR ================================================
 
-let selectedTime;
+var startTime;
+var endTime;
+const pickrForm = document.querySelector('.date-time-pickr-form');
 
 flatpickr("#datetimepicker-start-time", {
     enableTime: true,
     noCalendar: true,
     dateFormat: "H:i",
     onChange: function (selectedDates, dateStr, instance) {
-        selectedTime = selectedDates[0];
-        console.log("Selected Time:", selectedTime);
+        startTime = selectedDates[0];
+        console.log("Selected Start Time:", startTime);
     }
 });
 flatpickr("#datetimepicker-end-time", {
@@ -662,20 +662,114 @@ flatpickr("#datetimepicker-end-time", {
     noCalendar: true,
     dateFormat: "H:i",
     onChange: function (selectedDates, dateStr, instance) {
-        selectedTime = selectedDates[0];
-        console.log("Selected Time:", selectedTime);
+        endTime = selectedDates[0];
+        console.log("Selected End Time:", endTime);
     }
 });
 
-function submitTime() {
-    if (selectedTime) {
-        let hour = selectedTime.getHours();
-        let minute = selectedTime.getMinutes();
+function submitTimes() {
+    if (startTime && endTime) {
+        let startHour = startTime.getHours();
+        let startMinute = startTime.getMinutes();
+        let endHour = endTime.getHours();
+        let endMinute = endTime.getMinutes();
 
-        console.log(`Hour: ${hour}, Minute: ${minute}`);
-        alert(`Hour: ${hour}, Minute: ${minute}`);
+
+        let startTimeInMinutes = startHour * 60 + startMinute;
+        let endTimeInMinutes = endHour * 60 + endMinute;
+
+
+
+        if (endTimeInMinutes > startTimeInMinutes) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your work has been saved",
+                showConfirmButton: false,
+                timer: 1500
+            });
+
+            const updates = {};
+            updates[`/control/start-time`] = startTimeInMinutes;
+            updates[`/control/end-time`] = endTimeInMinutes;
+
+            update(dbRef, updates);
+        } else {
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "End time must be later than start time",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
     } else {
-        alert("Please select a time first.");
+        Swal.fire({
+            position: "top-end",
+            icon: "warning",
+            title: "Please select both start and end times",
+            showConfirmButton: false,
+            timer: 1500
+        });
     }
 }
+
+// SUBMIT START-TIME AND END-TIME
+pickrForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitTimes();
+});
+
+// READ START-TIME
+
+var startTimeInMinutes;
+let endTimeInMinutes;
+
+
+setInterval(() => {
+    get(child(dbRef, `/control/start-time`)).then((startTimeSnapShot) => {
+        if (startTimeSnapShot.exists()) {
+            get(child(dbRef, `/control/end-time`)).then((endTimeSnapShot) => {
+                if (endTimeSnapShot.exists()) {
+                    startTimeInMinutes = startTimeSnapShot.val();
+                    endTimeInMinutes = endTimeSnapShot.val();
+
+                    // get current hour
+                    var now = new Date();
+                    var currentHour = now.getHours();
+                    var currentMinute = now.getMinutes();
+                    var currentTimeInMinutes = currentHour * 60 + currentMinute;
+                    console.log(currentTimeInMinutes);
+
+                    if (currentTimeInMinutes >= startTimeInMinutes && currentTimeInMinutes <= endTimeInMinutes) {
+                        // turn on fan
+                        const updates = {};
+                        updates[`/monitor/centrifugalFan/status`] = 1;
+                        update(dbRef, updates);
+                    } else {
+                        // turn off fan
+                        const updates = {};
+                        updates[`/monitor/centrifugalFan/status`] = 0;
+                        updates[`/monitor/bypassValve/status`] = 1;
+                        updates[`/monitor/damper/status`] = 0;
+                        updates[`/monitor/solenoidValve-1/status`] = 0;
+                        updates[`/monitor/solenoidValve-2/status`] = 0;
+                        update(dbRef, updates);
+                    }
+
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
+        } else {
+            console.log("No data available");
+        }
+    }).catch((error) => {
+        console.error(error);
+    });
+}, 1000);
+
+
 

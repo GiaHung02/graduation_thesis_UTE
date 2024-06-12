@@ -305,39 +305,29 @@
           </div> -->
         </div>
 
-        <div class="pickr time-selection">
+        <div class="pickr time-selection-pickr">
           <h4 class="time-selection-title">Select Start and Stop Time</h4>
-          <div class="start-time-pickr">
+          <div class="time-pickr">
             <form action="" class="date-time-pickr-form">
-              <label>Start Time: </label>
+              <label>Start Time: <span class="curent-start-time"></span></label>
               <input
                 type="text"
                 id="datetimepicker-start-time"
                 placeholder="Select Date and Time"
                 required
               />
-              <label>Stop Time: </label>
+              <label>Stop Time: <span class="current-end-time"></span></label>
               <input
                 type="text"
                 id="datetimepicker-end-time"
                 placeholder="Select Date and Time"
                 required
               />
-              <button type="submit" class="btn-time">submit</button>
+              <button type="submit" class="btn btn-info btn-time">
+                submit
+              </button>
             </form>
           </div>
-          <!-- <div class="end-time-pickr">
-            <form action="" class="date-time-pickr-form">
-              <label>Stop Time: </label>
-              <input
-                type="text"
-                id="datetimepicker-end-time"
-                placeholder="Select Date and Time"
-                required
-              />
-              <button type="submit" class="btn-off-time">submit</button>
-            </form>
-          </div> -->
         </div>
 
         <div class="manual-mode">

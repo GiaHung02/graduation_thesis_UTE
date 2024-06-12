@@ -518,10 +518,6 @@ input[type="number"],
   background-color: #f0f0f0;
 }
 
-.start-time-pickr {
-  margin-bottom: 10px;
-}
-
 .time-selection-title {
   text-align: center;
 }
@@ -536,7 +532,7 @@ input[type="text"],
   box-sizing: border-box; /* Ensures padding and border are included in the element's total width */
 }
 
-.btn-time{
+.btn-time {
   margin-top: 10px;
 }
 
