@@ -10,6 +10,8 @@ import {
     set
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
+// import { flatpickr } from "https://cdn.jsdelivr.net/npm/flatpickr"
+
 const firebaseConfig = {
     apiKey: "AIzaSyCqmujteqYClVufw6UJzPjrhS6HKcyUc7w",
     authDomain: "graduation-thesis-ebd14.firebaseapp.com",
@@ -31,92 +33,92 @@ const dbRef = ref(getDatabase());
 
 // ===================================== LOGIN ====================================================
 
-var username = document.querySelector('.username');
-var password = document.querySelector('.password');
-var form = document.querySelector('.login-form');
-var login = document.querySelector('.login');
-var errorMessage = document.querySelector('#error-message');
-const section = document.querySelector('.content');
+// var username = document.querySelector('.username');
+// var password = document.querySelector('.password');
+// var form = document.querySelector('.login-form');
+// var login = document.querySelector('.login');
+// var errorMessage = document.querySelector('#error-message');
+// const section = document.querySelector('.content');
 
 
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    get(child(dbRef, "/login/username"))
-        .then((snapshotUsername) => {
-            if (snapshotUsername.exists()) {
-                // get password firebase
-                get(child(dbRef, "/login/password"))
-                    .then((snapshotPassword) => {
-                        if (snapshotPassword.exists()) {
-                            if (username.value === snapshotUsername.val() && password.value === snapshotPassword.val()) {
-                                username.value = '';
-                                password.value = '';
-                                section.style.display = 'block';
-                                login.style.display = 'none';
+// form.addEventListener('submit', function (e) {
+//     e.preventDefault();
+//     get(child(dbRef, "/login/username"))
+//         .then((snapshotUsername) => {
+//             if (snapshotUsername.exists()) {
+//                 // get password firebase
+//                 get(child(dbRef, "/login/password"))
+//                     .then((snapshotPassword) => {
+//                         if (snapshotPassword.exists()) {
+//                             if (username.value === snapshotUsername.val() && password.value === snapshotPassword.val()) {
+//                                 username.value = '';
+//                                 password.value = '';
+//                                 section.style.display = 'block';
+//                                 login.style.display = 'none';
 
-                            } else {
-                                username.value = '';
-                                password.value = '';
-                                errorMessage.innerHTML = "Incorrect username or password.";
-                                errorMessage.style.display = 'block';
-                            }
-                        } else {
-                            console.log("No data available");
-                        }
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            } else {
-                console.log("No data available");
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-})
-
-
-
-document.querySelector('.username').addEventListener('input', () => {
-    document.getElementById('error-message').style.display = 'none';
-});
-
-document.querySelector('.password').addEventListener('input', () => {
-    document.getElementById('error-message').style.display = 'none';
-});
+//                             } else {
+//                                 username.value = '';
+//                                 password.value = '';
+//                                 errorMessage.innerHTML = "Incorrect username or password.";
+//                                 errorMessage.style.display = 'block';
+//                             }
+//                         } else {
+//                             console.log("No data available");
+//                         }
+//                     })
+//                     .catch((error) => {
+//                         console.error(error);
+//                     });
+//             } else {
+//                 console.log("No data available");
+//             }
+//         })
+//         .catch((error) => {
+//             console.error(error);
+//         });
+// })
 
 
-// ===================================== lOGOUT ====================================================
 
-document.getElementById('logout-button').addEventListener('click', (e) => {
-    // Perform any necessary logout operations here, such as clearing session storage, cookies, etc.
-    // alert('You have been logged out.');
-    e.preventDefault(); // Prevent the default button click behavior
+// document.querySelector('.username').addEventListener('input', () => {
+//     document.getElementById('error-message').style.display = 'none';
+// });
 
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You will be logged out!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, log me out!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Handle the logout process here
-            Swal.fire(
-                'Logged Out!',
-                'You have been logged out.',
-                'success'
-            ).then(() => {
-                // Redirect to the login page or perform any other actions needed after logout
-                section.style.display = 'none';
-                login.style.display = 'flex';
-            });
-        }
-    });
-});
+// document.querySelector('.password').addEventListener('input', () => {
+//     document.getElementById('error-message').style.display = 'none';
+// });
+
+
+// // ===================================== lOGOUT ====================================================
+
+// document.getElementById('logout-button').addEventListener('click', (e) => {
+//     // Perform any necessary logout operations here, such as clearing session storage, cookies, etc.
+//     // alert('You have been logged out.');
+//     e.preventDefault(); // Prevent the default button click behavior
+
+//     Swal.fire({
+//         title: 'Are you sure?',
+//         text: "You will be logged out!",
+//         icon: 'warning',
+//         showCancelButton: true,
+//         confirmButtonColor: '#3085d6',
+//         cancelButtonColor: '#d33',
+//         confirmButtonText: 'Yes, log me out!'
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             // Handle the logout process here
+//             Swal.fire(
+//                 'Logged Out!',
+//                 'You have been logged out.',
+//                 'success'
+//             ).then(() => {
+//                 // Redirect to the login page or perform any other actions needed after logout
+//                 section.style.display = 'none';
+//                 login.style.display = 'flex';
+//             });
+//         }
+//     });
+// });
 
 // ===================================== SOLENOID VALVE 1 ====================================================
 const solenoidValveStatus = document.querySelector('.solenoid-valve-status');
@@ -195,7 +197,7 @@ onValue(temperatureRef, (snapshot) => {
     const data = snapshot.val();
     // console.log(snapshot.val());
     const temperatureValue = document.querySelector('.temperature-value');
-    temperatureValue.innerHTML = data + '<span class="parenthesis"> (°C) </span>';
+    temperatureValue.innerHTML = data + '<span class="parenthesis">°C</span>';
     temperature = data;
 });
 
@@ -206,7 +208,7 @@ onValue(co2Ref, (snapshot) => {
     const data = snapshot.val();
     // console.log(snapshot.val());
     const co2Value = document.querySelector('.co2-value');
-    co2Value.innerHTML = data + '<span class="parenthesis"> (Ppm) </span>';
+    co2Value.innerHTML = data + '<span class="parenthesis"> Ppm </span>';
     co2 = data;
 });
 
@@ -217,7 +219,7 @@ onValue(pressureRef, (snapshot) => {
     const data = snapshot.val();
     // console.log(snapshot.val());
     const pressureValue = document.querySelector('.pressure-value');
-    pressureValue.innerHTML = data + '<span class="parenthesis"> (Pa) </span>';
+    pressureValue.innerHTML = data + '<span class="parenthesis"> Pa </span>';
     pressure = data;
 });
 
@@ -300,7 +302,7 @@ var temperatureSetpoint = 0;
 const temperatureSetpointRef = ref(db, '/control/setpoint/temperature');
 onValue(temperatureSetpointRef, (snapshot) => {
     const data = snapshot.val();
-    currentTemperatureSetpoint.innerHTML = data + '<span class="parenthesis"> (°C) </span>';
+    currentTemperatureSetpoint.innerHTML = data + '<span class="parenthesis">°C</span>';
     temperatureSetpoint = data;
 });
 
@@ -349,7 +351,7 @@ var pressureSetpoint = 0;
 const pressureSetpointRef = ref(db, '/control/setpoint/pressure');
 onValue(pressureSetpointRef, (snapshot) => {
     const data = snapshot.val();
-    currentPressureSetpoint.innerHTML = data + '<span class="parenthesis"> (Pa) </span>';
+    currentPressureSetpoint.innerHTML = data + '<span class="parenthesis"> Pa </span>';
     pressureSetpoint = data;
 });
 // ===================================== SETPOINT: CO2 ================================================
@@ -397,7 +399,7 @@ var co2Setpoint = 0;
 const co2SetpointRef = ref(db, '/control/setpoint/co2');
 onValue(co2SetpointRef, (snapshot) => {
     const data = snapshot.val();
-    currentCo2Setpoint.innerHTML = data + '<span class="parenthesis"> (Ppm) </span>';
+    currentCo2Setpoint.innerHTML = data + '<span class="parenthesis"> Ppm </span>';
     co2Setpoint = data;
 });
 
@@ -441,20 +443,55 @@ const btnOn = document.querySelector('.btn-on');
 const btnOff = document.querySelector('.btn-off');
 var onOffToggle = false;
 
+function turnOffComponents(status, bypassStatus) {
+    const db = getDatabase();
+
+    // Write the new post's data simultaneously in the posts list and the user's post list.
+    const updates = {};
+    updates['/monitor/bypassValve/status'] = bypassStatus;
+    updates['/monitor/centrifugalFan/status'] = status;
+    updates['/monitor/damper/status'] = status;
+    updates['/monitor/solenoidValve-1/status'] = status;
+    updates['/monitor/solenoidValve-2/status'] = status;
+    return update(ref(db), updates);
+}
+
 
 // GET DATA TO SHOW STATUS ON OFF
-get(child(dbRef, `/control/on-off`)).then((snapshot) => {
-    if (snapshot.exists()) {
-        if (snapshot.val() === 1) {
-            document.querySelector('.btn-on').style.backgroundColor = 'green';
-        } else {
-            document.querySelector('.btn-off').style.backgroundColor = 'red';
-        }
+const onOffModeRef = ref(db, '/control/on-off');
+onValue(onOffModeRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data === 1) {
+        // ON
+        document.querySelector('.btn-on').style.backgroundColor = 'green';
+
+        // btn auto and manual mode
+        document.querySelector('.btn-auto').disabled = false;
+        document.querySelector('.btn-manual').disabled = false;
+
+        document.querySelector('#datetimepicker-start-time').disabled = false;
+        document.querySelector('#datetimepicker-end-time').disabled = false;
+        document.querySelector('.btn-on-time').disabled = false;
+        document.querySelector('.btn-off-time').disabled = false;
+
+        // 
     } else {
-        console.log("No data available");
+        // OFF
+        document.querySelector('.btn-off').style.backgroundColor = 'red';
+
+        // btn auto and manual mode
+        document.querySelector('.btn-auto').disabled = true;
+        document.querySelector('.btn-manual').disabled = true;
+        document.querySelector('#datetimepicker-start-time').disabled = true;
+        document.querySelector('#datetimepicker-end-time').disabled = true;
+        document.querySelector('.btn-on-time').disabled = true;
+        document.querySelector('.btn-off-time').disabled = true;
+
+
+        // OFF ALL THE COMPONENTS
+        turnOffComponents(0, 1);
     }
-}).catch((error) => {
-    console.error(error);
+
 });
 
 
@@ -481,9 +518,164 @@ btnOn.addEventListener('click', () => {
 });
 
 btnOff.addEventListener('click', () => {
-    // onOffToggle = !onOffToggle;
-    document.querySelector('.btn-on').style.backgroundColor = 'grey';
-    document.querySelector('.btn-off').style.backgroundColor = 'red';
-    btnOffFunction();
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "The system will be shut down",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Shut down!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Handle the logout process here
+            Swal.fire(
+                'Shut Down!',
+                'System shut down',
+                'success'
+            ).then(() => {
+                document.querySelector('.btn-on').style.backgroundColor = 'grey';
+                document.querySelector('.btn-off').style.backgroundColor = 'red';
+                btnOffFunction();
+                console.log(document.querySelectorAll('.form'));
+
+                turnOffComponents(0, 1)
+                // document.querySelector('.btn-auto').disabled = true;
+                // document.querySelector('.btn-manual').disabled = true;
+            });
+        }
+    });
 });
+
+// ===================================== AUTO / MANUAL MODE ================================================
+const autoForm = document.querySelector('.auto-form');
+const manualForm = document.querySelector('.manual-form');
+
+// GET AUTO MANUAL STATUS
+
+const autoModeRef = ref(db, '/control/mode/auto');
+onValue(autoModeRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data === 1) {
+        document.querySelector('.btn-auto').style.backgroundColor = 'green';
+        document.querySelector('.btn-manual').style.backgroundColor = 'black';
+        document.querySelector('.start-time-pickr').style.display = 'block';
+        document.querySelector('.end-time-pickr').style.display = 'block';
+
+    } else {
+        document.querySelector('.btn-auto').style.backgroundColor = 'black';
+        document.querySelector('.btn-manual').style.backgroundColor = 'green';
+        document.querySelector('.start-time-pickr').style.display = 'none';
+        document.querySelector('.end-time-pickr').style.display = 'none';
+    }
+});
+
+
+// UPDATE AUTO MANUAL MODE
+function updateAutoManualMode(auto, manual) {
+    const db = getDatabase();
+
+    // A post entry.
+    const postData = {
+        auto: auto,
+        manual: manual
+    };
+
+    // Write the new post's data simultaneously in the posts list and the user's post list.
+    const updates = {};
+    updates['/control/mode'] = postData;
+    return update(ref(db), updates);
+};
+
+autoForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Manual Mode will be turned on!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Turn On!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Handle the logout process here
+            Swal.fire(
+                'Manual Mode!',
+                'Turn On Manual Mode',
+                'success'
+            ).then(() => {
+                document.querySelector('.btn-auto').style.backgroundColor = 'green';
+                document.querySelector('.btn-manual').style.backgroundColor = 'black';
+                updateAutoManualMode(1, 0);
+            });
+        }
+    });
+
+
+});
+
+manualForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Manual Mode will be turned on!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Turn On!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Handle the logout process here
+            Swal.fire(
+                'Manual Mode!',
+                'Turn On Manual Mode',
+                'success'
+            ).then(() => {
+                document.querySelector('.btn-auto').style.backgroundColor = 'black';
+                document.querySelector('.btn-manual').style.backgroundColor = 'green';
+                updateAutoManualMode(0, 1);
+            });
+        }
+    });
+
+});
+
+
+// ===================================== FLATPICKR ================================================
+
+let selectedTime;
+
+flatpickr("#datetimepicker-start-time", {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",
+    onChange: function (selectedDates, dateStr, instance) {
+        selectedTime = selectedDates[0];
+        console.log("Selected Time:", selectedTime);
+    }
+});
+flatpickr("#datetimepicker-end-time", {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",
+    onChange: function (selectedDates, dateStr, instance) {
+        selectedTime = selectedDates[0];
+        console.log("Selected Time:", selectedTime);
+    }
+});
+
+function submitTime() {
+    if (selectedTime) {
+        let hour = selectedTime.getHours();
+        let minute = selectedTime.getMinutes();
+
+        console.log(`Hour: ${hour}, Minute: ${minute}`);
+        alert(`Hour: ${hour}, Minute: ${minute}`);
+    } else {
+        alert("Please select a time first.");
+    }
+}
 

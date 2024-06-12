@@ -11,6 +11,12 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../css/index.css" />
+
+    <!-- flatpickr -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
   </head>
   <body>
     <div class="body">
@@ -78,6 +84,7 @@
                 </form>
               </div>
             </div>
+
             <div class="col-sm-2">
               <div id="pressure-setpont">
                 <form action="" class="pressure-form">
@@ -132,6 +139,47 @@
                 </form>
               </div>
             </div>
+            <div class="col-sm-1 mode">
+              <div id="auto-mode">
+                <form action="" class="form auto-form">
+                  <!-- <label for="auto" class="label-auto">Auto </label> -->
+                  <div class="input-button-wrapper">
+                    <button type="submit" class="btn btn-dark btn-auto">
+                      Auto Mode
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-sm-1 mode">
+              <div id="manual-mode">
+                <form action="" class="form manual-form">
+                  <!-- <label for="co2" class="label-manual">Manual</label> -->
+                  <div class="input-button-wrapper">
+                    <button type="submit" class="btn btn-dark btn-manual">
+                      Manual Mode
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-sm-1 on-off">
+              <div id="on">
+                <button type="submit" class="btn btn-dark btn-on">ON</button>
+                <button type="submit" class="btn btn-dark btn-off">OFF</button>
+              </div>
+            </div>
+
+            <!-- <div class="col-sm-1 btn-on-off">
+              <div class="d-flex">
+                <button class="btn-on"></button>
+                <p>On</p>
+              </div>
+              <div class="d-flex">
+                <button class="btn-off"></button>
+                <p>Off</p>
+              </div>
+            </div> -->
           </div>
           <div class="img-container">
             <img
@@ -256,19 +304,86 @@
           <!-- <div class="row">
           </div> -->
         </div>
-        <div class="btn-on-off">
-          <div class="d-flex">
-            <button class="btn-on"></button>
-            <p>On</p>
+
+        <div class="pickr time-selection">
+          <h4 class="time-selection-title">Select Start and Stop Time</h4>
+          <div class="start-time-pickr">
+            <form action="" class="date-time-pickr-form">
+              <label>Start Time: </label>
+              <input
+                type="text"
+                id="datetimepicker-start-time"
+                placeholder="Select Date and Time"
+                required
+              />
+              <label>Stop Time: </label>
+              <input
+                type="text"
+                id="datetimepicker-end-time"
+                placeholder="Select Date and Time"
+                required
+              />
+              <button type="submit" class="btn-time">submit</button>
+            </form>
           </div>
-          <div class="d-flex">
-            <button class="btn-off"></button>
-            <p>Off</p>
+          <!-- <div class="end-time-pickr">
+            <form action="" class="date-time-pickr-form">
+              <label>Stop Time: </label>
+              <input
+                type="text"
+                id="datetimepicker-end-time"
+                placeholder="Select Date and Time"
+                required
+              />
+              <button type="submit" class="btn-off-time">submit</button>
+            </form>
+          </div> -->
+        </div>
+
+        <div class="manual-mode">
+          <div class="row centrifugal-fan component">
+            <div class="col-sm-2">
+              <p class="component-name">Centrifugal Fan</p>
+            </div>
+
+            <div class="col-sm-4 button">
+              <button>On</button>
+              <button>Off</button>
+            </div>
+          </div>
+          <div class="row damper component">
+            <div class="col-sm-2">
+              <p class="component-name">Damper</p>
+            </div>
+            <div class="col-sm-4 button">
+              <button>On</button>
+              <button>Off</button>
+            </div>
+          </div>
+          <div class="row solenoid-valve component">
+            <div class="col-sm-2">
+              <p class="component-name">Solenoid Valve</p>
+            </div>
+
+            <div class="col-sm-4 button">
+              <button>On</button>
+              <button>Off</button>
+            </div>
+          </div>
+          <div class="row bypass-valve component">
+            <div class="col-sm-2">
+              <p class="component-name">Bypass Valve</p>
+            </div>
+
+            <div class="col-sm-2 button">
+              <button>On</button>
+              <button>Off</button>
+            </div>
           </div>
         </div>
       </section>
     </div>
-    <div class="login">
+    <!-- <div class="login">
       <h1>Sign In</h1>
       <form class="login-form">
         <div class="form-group">
@@ -301,7 +416,7 @@
           <button type="submit" class="btn btn-primary submit">Login</button>
         </div>
       </form>
-    </div>
+    </div> -->
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -310,5 +425,6 @@
     ></script>
     <script type="module" src="../js/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   </body>
 </html>
