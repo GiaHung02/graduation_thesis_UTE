@@ -1,5 +1,5 @@
 .content {
-  display: block;
+  display: none;
 }
 
 /* ================================ NAVBAR =========================================== */
@@ -59,10 +59,11 @@ h2 {
   margin: 10rem 0 0 5rem;
 }
 
-.air-handling-unit-damper-open,
-.air-handling-unit-fan-open,
-.air-handling-unit-fan-damper-open {
+.animation {
   display: none;
+  position: absolute;
+  margin-left: -210px;
+  transform: translateY(-680px); /* Adjust the X value as needed */
 }
 
 /* ================================ SOLENOID VALVE STATUS =========================================== */
@@ -100,7 +101,7 @@ h2 {
   border-color: red;
   position: relative;
   margin-left: 3rem;
-  transform: translateY(-707px); /* Adjust the X value as needed */
+  transform: translateY(-655px); /* Adjust the X value as needed */
   /* transform: translateX(250px); */
   /* left: 15%; */
 }
@@ -157,6 +158,58 @@ h2 {
 }
 
 .damper-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  font-size: 15px;
+  /* padding: 2px 8px; */
+  width: 120px;
+  height: 50px;
+  /* text-align: center; */
+  align-items: center;
+}
+
+/* ================================== WATER PRESSURE 1 VALUE =========================================== */
+
+.water-pressure-1-card {
+  border: 4px solid #000;
+  width: 8rem;
+  border-radius: 10px;
+  border-color: red;
+  position: relative;
+  /* top: 60%;
+  left: 27%; */
+  margin-left: 14rem;
+  transform: translateY(-638px);
+}
+
+.water-pressure-1-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  font-size: 15px;
+  /* padding: 2px 8px; */
+  width: 120px;
+  height: 50px;
+  /* text-align: center; */
+  align-items: center;
+}
+
+/* ================================== WATER PRESSURE 2 VALUE =========================================== */
+
+.water-pressure-2-card {
+  border: 4px solid #000;
+  width: 8rem;
+  border-radius: 10px;
+  border-color: red;
+  position: relative;
+  /* top: 60%;
+  left: 27%; */
+  margin-left: 3rem;
+  transform: translateY(-695px);
+}
+
+.water-pressure-2-container {
   display: flex;
   flex-direction: column;
   /* justify-content: space-between; */
@@ -257,36 +310,28 @@ h2 {
 }
 
 /* ================================== CENTRIFUGAL FAN VALUE =========================================== */
-.row-centrifugal-fan {
-  position: relative;
-  margin-left: 37vh;
-  transform: translateY(-1000px);
-  width: 30vh;
-  border: 5px solid #30a444;
+.fan-card {
+  border: 4px solid #000;
+  width: 8rem;
   border-radius: 10px;
-  /* border-radius: 10px; */
+  border-color: #30a444;
+  position: relative;
+  /* top: 69%;
+  left: 56%; */
+  margin-left: 23rem;
+  transform: translateY(-957px);
 }
 
-.col-sm {
-  text-align: center;
-  /* border: 2px solid green; */
-}
-
-.value {
-  text-align: center;
-}
-
-.speed-col {
-  border-right: 5px solid #30a444;
-  border-bottom: 5px solid #30a444;
-}
-
-.hz-col {
-  border-bottom: 5px solid #30a444;
-}
-
-.current-col {
-  border-right: 5px solid #30a444;
+.fan-container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  font-size: 15px;
+  /* padding: 2px 8px; */
+  width: 120px;
+  height: 50px;
+  /* text-align: center; */
+  align-items: center;
 }
 /* LOGOUT BUTTON */
 .logout-button {
@@ -510,8 +555,8 @@ input[type="number"],
 
 .pickr {
   position: relative;
-  transform: translateY(-1000px);
-  margin-left: 1100px;
+  transform: translateY(-1100px);
+  margin-left: 1000px;
   border: 1px solid black;
   width: fit-content;
   padding: 20px;
@@ -538,8 +583,37 @@ input[type="text"],
 
 /* ====================================== MANUAL MODE ===================================================*/
 
-.manual-mode {
+/* .manual-mode {
   position: relative;
-  transform: translateY(-100px);
+  transform: translateY(-1000px);
+  margin-left: 1000px;
+  border: 2px solid black;
+} */
+
+table {
+  width: 35%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  position: relative;
+  transform: translateY(-1100px);
   margin-left: 900px;
+}
+td {
+  border: 1px solid #ccc;
+  padding: 20px;
+  vertical-align: top;
+  text-align: center;
+}
+.component-name {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.button-group button {
+  margin: 5px;
+}
+
+table,
+th,
+td {
+  border: 2px solid;
 }

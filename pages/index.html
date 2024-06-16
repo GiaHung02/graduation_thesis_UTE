@@ -183,39 +183,24 @@
           </div>
           <div class="img-container">
             <img
-              src="../img/components/ahuuuu.png"
+              src="../img/components/ahu.png"
               alt="air handling unit"
               height="50%"
               width="50%"
               class="airHandlingUnitSystem"
             />
             <img
-              src="../img/components/ahu_damper_open.png"
+              src="../img/animation/animation-copy.gif"
               alt="ahu damper open"
-              height="50%"
-              width="50%"
-              class="air-handling-unit-damper-open"
-            />
-            <img
-              src="../img/components/ahu_fan_ON.png"
-              alt="ahu damper open"
-              height="50%"
-              width="50%"
-              class="air-handling-unit-fan-open"
-            />
-            <img
-              src="../img/components/ahu_Fan_damper_open.png"
-              alt="ahu damper open"
-              height="50%"
-              width="50%"
-              class="air-handling-unit-fan-damper-open"
+              width="90%"
+              class="animation"
             />
           </div>
 
           <!-- Solenoid Valve -->
           <div class="solenoid-valve-card">
             <div class="solenoid-valve-container">
-              <b>Solenoid Valve</b>
+              <b>Solenoid Valve 1</b>
               <p>Status: <span class="solenoid-valve-status">Off</span></p>
             </div>
           </div>
@@ -224,7 +209,7 @@
           <div class="bypass-valve-card">
             <div class="bypass-valve-container">
               <b>Bypass Valve</b>
-              <p>Status: <span class="bypass-valve-status">Off</span></p>
+              <p>Value: <span class="bypass-valve-status">0</span></p>
             </div>
           </div>
 
@@ -272,23 +257,10 @@
           </div>
 
           <!-- Centrifugal Fan -->
-          <div class="row row-centrifugal-fan">
-            <div class="col-sm speed-col">
-              <b>Speed</b>
-              <div class="value speed-value">21</div>
-            </div>
-            <div class="col-sm hz-col">
-              <b> Frequency </b>
-              <div class="value hz-value">20</div>
-            </div>
-            <div class="w-100"></div>
-            <div class="col-sm current-col">
-              <b> Current </b>
-              <div class="value current-value">10</div>
-            </div>
-            <div class="col-sm voltage-col">
-              <b> Voltage </b>
-              <div class="value voltage-value">50</div>
+          <div class="fan-card">
+            <div class="fan-container">
+              <b>Centrifugal Fan</b>
+              <p>Status: <span class="fan-status">Off</span></p>
             </div>
           </div>
 
@@ -301,6 +273,26 @@
               </div>
             </div>
           </div>
+
+          <div class="water-pressure-1-card">
+            <div class="water-pressure-1-container">
+              <b>Water Pressure 1</b>
+              <p class="water-pressure-1-value">
+                0
+                <span class="water-pressure-1-parenthesis"> &#40;Pa&#41; </span>
+              </p>
+            </div>
+          </div>
+
+          <div class="water-pressure-2-card">
+            <div class="water-pressure-2-container">
+              <b>Water Pressure 2</b>
+              <p class="water-pressure-2-value">
+                0
+                <span class="water-pressure-2-parenthesis"> &#40;Pa&#41; </span>
+              </p>
+            </div>
+          </div>
           <!-- <div class="row">
           </div> -->
         </div>
@@ -309,7 +301,9 @@
           <h4 class="time-selection-title">Select Start and Stop Time</h4>
           <div class="time-pickr">
             <form action="" class="date-time-pickr-form">
-              <label>Start Time: <span class="curent-start-time"></span></label>
+              <label
+                >Start Time: <span class="current-start-time"></span
+              ></label>
               <input
                 type="text"
                 id="datetimepicker-start-time"
@@ -330,50 +324,59 @@
           </div>
         </div>
 
-        <div class="manual-mode">
-          <div class="row centrifugal-fan component">
-            <div class="col-sm-2">
+        <!-- manual mode -->
+        <table class="manual-table">
+          <tr>
+            <td>
               <p class="component-name">Centrifugal Fan</p>
-            </div>
-
-            <div class="col-sm-4 button">
-              <button>On</button>
-              <button>Off</button>
-            </div>
-          </div>
-          <div class="row damper component">
-            <div class="col-sm-2">
+              <div class="button-group">
+                <button class="btn btn-secondary btn-fan-on">On</button>
+                <button class="btn btn-secondary btn-fan-off">Off</button>
+              </div>
+            </td>
+            <td>
               <p class="component-name">Damper</p>
-            </div>
-            <div class="col-sm-4 button">
-              <button>On</button>
-              <button>Off</button>
-            </div>
-          </div>
-          <div class="row solenoid-valve component">
-            <div class="col-sm-2">
-              <p class="component-name">Solenoid Valve</p>
-            </div>
-
-            <div class="col-sm-4 button">
-              <button>On</button>
-              <button>Off</button>
-            </div>
-          </div>
-          <div class="row bypass-valve component">
-            <div class="col-sm-2">
+              <div class="button-group">
+                <button class="btn btn-secondary btn-damper-on">On</button>
+                <button class="btn btn-secondary btn-damper-off">Off</button>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p class="component-name">Solenoid Valve 1</p>
+              <div class="button-group">
+                <button class="btn btn-secondary btn-solenoid-1-on">On</button>
+                <button class="btn btn-secondary btn-solenoid-1-off">
+                  Off
+                </button>
+              </div>
+            </td>
+            <td>
+              <p class="component-name">Solenoid Valve 2</p>
+              <div class="button-group">
+                <button class="btn btn-secondary btn-solenoid-2-on">On</button>
+                <button class="btn btn-secondary btn-solenoid-2-off">
+                  Off
+                </button>
+              </div>
+            </td>
+            <td>
               <p class="component-name">Bypass Valve</p>
-            </div>
-
-            <div class="col-sm-2 button">
-              <button>On</button>
-              <button>Off</button>
-            </div>
-          </div>
-        </div>
+              <div class="button-group">
+                <form action="" class="bypass-form">
+                  <input type="number" min="0" max="100" class="bypass-value" />
+                  <button type="submit" class="btn btn-primary btn-bypa">
+                    submit
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        </table>
       </section>
     </div>
-    <!-- <div class="login">
+    <div class="login">
       <h1>Sign In</h1>
       <form class="login-form">
         <div class="form-group">
@@ -406,7 +409,7 @@
           <button type="submit" class="btn btn-primary submit">Login</button>
         </div>
       </form>
-    </div> -->
+    </div>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

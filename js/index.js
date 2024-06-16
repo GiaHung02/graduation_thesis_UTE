@@ -33,92 +33,92 @@ const dbRef = ref(getDatabase());
 
 // ===================================== LOGIN ====================================================
 
-// var username = document.querySelector('.username');
-// var password = document.querySelector('.password');
-// var form = document.querySelector('.login-form');
-// var login = document.querySelector('.login');
-// var errorMessage = document.querySelector('#error-message');
-// const section = document.querySelector('.content');
+var username = document.querySelector('.username');
+var password = document.querySelector('.password');
+var form = document.querySelector('.login-form');
+var login = document.querySelector('.login');
+var errorMessage = document.querySelector('#error-message');
+const section = document.querySelector('.content');
 
 
-// form.addEventListener('submit', function (e) {
-//     e.preventDefault();
-//     get(child(dbRef, "/login/username"))
-//         .then((snapshotUsername) => {
-//             if (snapshotUsername.exists()) {
-//                 // get password firebase
-//                 get(child(dbRef, "/login/password"))
-//                     .then((snapshotPassword) => {
-//                         if (snapshotPassword.exists()) {
-//                             if (username.value === snapshotUsername.val() && password.value === snapshotPassword.val()) {
-//                                 username.value = '';
-//                                 password.value = '';
-//                                 section.style.display = 'block';
-//                                 login.style.display = 'none';
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    get(child(dbRef, "/login/username"))
+        .then((snapshotUsername) => {
+            if (snapshotUsername.exists()) {
+                // get password firebase
+                get(child(dbRef, "/login/password"))
+                    .then((snapshotPassword) => {
+                        if (snapshotPassword.exists()) {
+                            if (username.value === snapshotUsername.val() && password.value === snapshotPassword.val()) {
+                                username.value = '';
+                                password.value = '';
+                                section.style.display = 'block';
+                                login.style.display = 'none';
 
-//                             } else {
-//                                 username.value = '';
-//                                 password.value = '';
-//                                 errorMessage.innerHTML = "Incorrect username or password.";
-//                                 errorMessage.style.display = 'block';
-//                             }
-//                         } else {
-//                             console.log("No data available");
-//                         }
-//                     })
-//                     .catch((error) => {
-//                         console.error(error);
-//                     });
-//             } else {
-//                 console.log("No data available");
-//             }
-//         })
-//         .catch((error) => {
-//             console.error(error);
-//         });
-// })
-
-
-
-// document.querySelector('.username').addEventListener('input', () => {
-//     document.getElementById('error-message').style.display = 'none';
-// });
-
-// document.querySelector('.password').addEventListener('input', () => {
-//     document.getElementById('error-message').style.display = 'none';
-// });
+                            } else {
+                                username.value = '';
+                                password.value = '';
+                                errorMessage.innerHTML = "Incorrect username or password.";
+                                errorMessage.style.display = 'block';
+                            }
+                        } else {
+                            console.log("No data available");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            } else {
+                console.log("No data available");
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+})
 
 
-// // ===================================== lOGOUT ====================================================
 
-// document.getElementById('logout-button').addEventListener('click', (e) => {
-//     // Perform any necessary logout operations here, such as clearing session storage, cookies, etc.
-//     // alert('You have been logged out.');
-//     e.preventDefault(); // Prevent the default button click behavior
+document.querySelector('.username').addEventListener('input', () => {
+    document.getElementById('error-message').style.display = 'none';
+});
 
-//     Swal.fire({
-//         title: 'Are you sure?',
-//         text: "You will be logged out!",
-//         icon: 'warning',
-//         showCancelButton: true,
-//         confirmButtonColor: '#3085d6',
-//         cancelButtonColor: '#d33',
-//         confirmButtonText: 'Yes, log me out!'
-//     }).then((result) => {
-//         if (result.isConfirmed) {
-//             // Handle the logout process here
-//             Swal.fire(
-//                 'Logged Out!',
-//                 'You have been logged out.',
-//                 'success'
-//             ).then(() => {
-//                 // Redirect to the login page or perform any other actions needed after logout
-//                 section.style.display = 'none';
-//                 login.style.display = 'flex';
-//             });
-//         }
-//     });
-// });
+document.querySelector('.password').addEventListener('input', () => {
+    document.getElementById('error-message').style.display = 'none';
+});
+
+
+// ===================================== lOGOUT ====================================================
+
+document.getElementById('logout-button').addEventListener('click', (e) => {
+    // Perform any necessary logout operations here, such as clearing session storage, cookies, etc.
+    // alert('You have been logged out.');
+    e.preventDefault(); // Prevent the default button click behavior
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You will be logged out!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, log me out!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Handle the logout process here
+            Swal.fire(
+                'Logged Out!',
+                'You have been logged out.',
+                'success'
+            ).then(() => {
+                // Redirect to the login page or perform any other actions needed after logout
+                section.style.display = 'none';
+                login.style.display = 'flex';
+            });
+        }
+    });
+});
 
 // ===================================== SOLENOID VALVE 1 ====================================================
 const solenoidValveStatus = document.querySelector('.solenoid-valve-status');
@@ -152,7 +152,7 @@ onValue(solenoidValveRef2, (snapshot) => {
 
 // ===================================== BYPASS VALVE ====================================================
 
-const bypassValveRef = ref(db, '/monitor/bypassValve/status');
+const bypassValveRef = ref(db, '/monitor/bypassValve/value');
 onValue(bypassValveRef, (snapshot) => {
     const data = snapshot.val();
     // console.log(snapshot.val());
@@ -160,11 +160,11 @@ onValue(bypassValveRef, (snapshot) => {
     // console.log(typeof snapshot.val());
     const bypassCard = document.querySelector('.bypass-valve-card');
 
-    if (data === 1) {
-        bypassValveStatus.innerHTML = "On";
+    if (data >= 1) {
+        bypassValveStatus.innerHTML = data + "%";
         bypassCard.style.borderColor = '#30a444';
     } else {
-        bypassValveStatus.innerHTML = "Off";
+        bypassValveStatus.innerHTML = data;
         bypassCard.style.borderColor = 'red';
     }
 });
@@ -223,41 +223,41 @@ onValue(pressureRef, (snapshot) => {
     pressure = data;
 });
 
-// ===================================== CENTRIFUGAL FAN: SPEED ====================================================
-const centrifugalFanSpeedRef = ref(db, '/monitor/centrifugalFan/speed');
-onValue(centrifugalFanSpeedRef, (snapshot) => {
+// ===================================== CENTRIFUGAL FAN: STATUS ================================================
+const centrifugalFanStatusRef = ref(db, '/monitor/centrifugalFan/status');
+onValue(centrifugalFanStatusRef, (snapshot) => {
     const data = snapshot.val();
-    // console.log(snapshot.val());
-    const speedValue = document.querySelector('.speed-value');
-    speedValue.innerHTML = data + '<span class="parenthesis"> (rpm) </span>';
+    const statusValue = document.querySelector('.fan-status');
+    const fanCard = document.querySelector('.fan-card');
+    if (data === 1) {
+        statusValue.innerHTML = "On";
+        fanCard.style.borderColor = '#30a444';
+    } else {
+        statusValue.innerHTML = 'Off';
+        fanCard.style.borderColor = 'red';
+    }
 });
 
-// ===================================== CENTRIFUGAL FAN: Frequency ================================================
-const centrifugalFanFrequencyRef = ref(db, '/monitor/centrifugalFan/frequency');
-onValue(centrifugalFanFrequencyRef, (snapshot) => {
+// ===================================== WATER PRESSURE 1: VALUE ================================================
+// ===================================== WATER PRESSURE 2: VALUE ================================================
+const waterPressure1ValueRef = ref(db, '/monitor/waterPressure-1/value');
+const waterPressure2ValueRef = ref(db, '/monitor/waterPressure-2/value');
+onValue(waterPressure1ValueRef, (snapshot) => {
     const data = snapshot.val();
-    // console.log(snapshot.val());
-    const frequencyValue = document.querySelector('.hz-value');
-    frequencyValue.innerHTML = data + '<span class="parenthesis"> (Hz) </span>';
+    const waterPressure1Value = document.querySelector('.water-pressure-1-value');
+    const waterPressureCard = document.querySelector('.water-pressure-1-card');
+    waterPressure1Value.innerHTML = data + 'Pa';
+    waterPressureCard.style.borderColor = '#30a444';
+});
+onValue(waterPressure2ValueRef, (snapshot) => {
+    const data = snapshot.val();
+    const waterPressure2Value = document.querySelector('.water-pressure-2-value');
+    const waterPressure2Card = document.querySelector('.water-pressure-2-card');
+    waterPressure2Value.innerHTML = data + 'Pa';
+    waterPressure2Card.style.borderColor = '#30a444';
 });
 
-// ===================================== CENTRIFUGAL FAN: Current ================================================
-const centrifugalFanCurrentRef = ref(db, '/monitor/centrifugalFan/current');
-onValue(centrifugalFanCurrentRef, (snapshot) => {
-    const data = snapshot.val();
-    // console.log(snapshot.val());
-    const currentValue = document.querySelector('.current-value');
-    currentValue.innerHTML = data + '<span class="parenthesis"> (A) </span>';
-});
 
-// ===================================== CENTRIFUGAL FAN: Voltage ================================================
-const centrifugalFanVoltageRef = ref(db, '/monitor/centrifugalFan/voltage');
-onValue(centrifugalFanVoltageRef, (snapshot) => {
-    const data = snapshot.val();
-    // console.log(snapshot.val());
-    const voltageValue = document.querySelector('.voltage-value');
-    voltageValue.innerHTML = data + '<span class="parenthesis"> (V) </span>';
-});
 // ===================================== SETPOINT: TEMPERATURE ================================================
 
 // UPDATE TEMPERATURE SETPOINT
@@ -559,12 +559,14 @@ onValue(autoModeRef, (snapshot) => {
         document.querySelector('.btn-auto').style.backgroundColor = 'green';
         document.querySelector('.btn-manual').style.backgroundColor = 'black';
         document.querySelector('.time-selection-pickr').style.display = 'block';
-
+        document.querySelector('.manual-table').style.display = 'none';
+        console.log('Auto mode activated, manual table hidden');  // Debug log
     } else {
         document.querySelector('.btn-auto').style.backgroundColor = 'black';
         document.querySelector('.btn-manual').style.backgroundColor = 'green';
         document.querySelector('.time-selection-pickr').style.display = 'none';
-
+        document.querySelector('.manual-table').style.display = '';
+        console.log('Manual mode activated, manual table shown');  // Debug log
     }
 });
 
@@ -610,8 +612,6 @@ autoForm.addEventListener('submit', function (e) {
             });
         }
     });
-
-
 });
 
 manualForm.addEventListener('submit', function (e) {
@@ -644,132 +644,280 @@ manualForm.addEventListener('submit', function (e) {
 
 // ===================================== FLATPICKR ================================================
 
-var startTime;
-var endTime;
-const pickrForm = document.querySelector('.date-time-pickr-form');
+var autoModeSetInterval;
+const autoMode = () => {
+    var startTime;
+    var endTime;
+    const pickrForm = document.querySelector('.date-time-pickr-form');
 
-flatpickr("#datetimepicker-start-time", {
-    enableTime: true,
-    noCalendar: true,
-    dateFormat: "H:i",
-    onChange: function (selectedDates, dateStr, instance) {
-        startTime = selectedDates[0];
+    const initFlatpickr = (selector, callback) => {
+        flatpickr(selector, {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            onChange: (selectedDates) => {
+                callback(selectedDates[0]);
+            }
+        });
+    };
+
+    initFlatpickr("#datetimepicker-start-time", (date) => {
+        startTime = date;
         console.log("Selected Start Time:", startTime);
-    }
-});
-flatpickr("#datetimepicker-end-time", {
-    enableTime: true,
-    noCalendar: true,
-    dateFormat: "H:i",
-    onChange: function (selectedDates, dateStr, instance) {
-        endTime = selectedDates[0];
+    });
+
+    initFlatpickr("#datetimepicker-end-time", (date) => {
+        endTime = date;
         console.log("Selected End Time:", endTime);
+    });
+
+    const submitTimes = () => {
+        if (startTime && endTime) {
+            const startTimeInMinutes = startTime.getHours() * 60 + startTime.getMinutes();
+            const endTimeInMinutes = endTime.getHours() * 60 + endTime.getMinutes();
+
+            if (endTimeInMinutes > startTimeInMinutes) {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Your work has been saved",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+
+                const updates = {
+                    '/control/start-time': startTimeInMinutes,
+                    '/control/end-time': endTimeInMinutes
+                };
+
+                update(dbRef, updates);
+            } else {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: "End time must be later than start time",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        } else {
+            Swal.fire({
+                position: "top-end",
+                icon: "warning",
+                title: "Please select both start and end times",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+    };
+
+    pickrForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        submitTimes();
+    });
+
+    const controlFan = () => {
+        get(child(dbRef, `/control/start-time`)).then((startTimeSnapShot) => {
+            if (startTimeSnapShot.exists()) {
+                get(child(dbRef, `/control/end-time`)).then((endTimeSnapShot) => {
+                    if (endTimeSnapShot.exists()) {
+                        const startTimeInMinutes = startTimeSnapShot.val();
+                        const endTimeInMinutes = endTimeSnapShot.val();
+
+                        const now = new Date();
+                        const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
+
+                        const updates = {
+                            '/monitor/centrifugalFan/status': (currentTimeInMinutes >= startTimeInMinutes && currentTimeInMinutes <= endTimeInMinutes) ? 1 : 0,
+                            '/monitor/bypassValve/status': (currentTimeInMinutes >= startTimeInMinutes && currentTimeInMinutes <= endTimeInMinutes) ? 0 : 1,
+                            '/monitor/damper/status': 0,
+                            '/monitor/solenoidValve-1/status': 0,
+                            '/monitor/solenoidValve-2/status': 0
+                        };
+
+                        update(dbRef, updates);
+                        document.querySelector('.animation').style.display = (currentTimeInMinutes >= startTimeInMinutes && currentTimeInMinutes <= endTimeInMinutes) ? 'block' : 'none';
+                    } else {
+                        console.log("No end time data available");
+                    }
+                }).catch(console.error);
+            } else {
+                console.log("No start time data available");
+            }
+        }).catch(console.error);
+    };
+
+    autoModeSetInterval = setInterval(controlFan, 1000);
+
+    const convertMinuteToHour = (totalMinutes) => {
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = String(totalMinutes % 60).padStart(2, '0');
+        return { hours, minutes };
+    };
+
+    const displayTime = (refPath, elementSelector) => {
+        onValue(ref(db, refPath), (snapshot) => {
+            const data = snapshot.val();
+            const { hours, minutes } = convertMinuteToHour(data);
+            document.querySelector(elementSelector).innerHTML = `${hours}:${minutes}`;
+        });
+    };
+
+    displayTime('/control/start-time', '.current-start-time');
+    displayTime('/control/end-time', '.current-end-time');
+};
+
+
+
+// ===================================== MANUAL MODE ================================================
+const manualMode = () => {
+    // READ
+    const centrifugalFanRef = ref(db, '/monitor/centrifugalFan/status');
+    const damperRef = ref(db, '/monitor/damper/status');
+    const solenoidValve1Ref = ref(db, '/monitor/solenoidValve-1/status');
+    const solenoidValve2Ref = ref(db, '/monitor/solenoidValve-2/status');
+
+    onValue(centrifugalFanRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data === 1) {
+            document.querySelector('.btn-fan-on').style.backgroundColor = 'green';
+            document.querySelector('.btn-fan-off').style.backgroundColor = 'grey';
+        } else {
+            document.querySelector('.btn-fan-off').style.backgroundColor = 'red';
+            document.querySelector('.btn-fan-on').style.backgroundColor = 'grey';
+        }
+    });
+
+    onValue(damperRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data === 1) {
+            document.querySelector('.btn-damper-on').style.backgroundColor = 'green';
+            document.querySelector('.btn-damper-off').style.backgroundColor = 'grey';
+        } else {
+            document.querySelector('.btn-damper-off').style.backgroundColor = 'red';
+            document.querySelector('.btn-damper-on').style.backgroundColor = 'grey';
+        }
+    });
+
+    onValue(solenoidValve1Ref, (snapshot) => {
+        const data = snapshot.val();
+        console.log('damper', data);
+        if (data === 1) {
+            document.querySelector('.btn-solenoid-1-on').style.backgroundColor = 'green';
+            document.querySelector('.btn-solenoid-1-off').style.backgroundColor = 'grey';
+        } else {
+            document.querySelector('.btn-solenoid-1-off').style.backgroundColor = 'red';
+            document.querySelector('.btn-solenoid-1-on').style.backgroundColor = 'grey';
+        }
+    });
+
+    onValue(solenoidValve2Ref, (snapshot) => {
+        const data = snapshot.val();
+        console.log('damper', data);
+        if (data === 1) {
+            document.querySelector('.btn-solenoid-2-on').style.backgroundColor = 'green';
+            document.querySelector('.btn-solenoid-2-off').style.backgroundColor = 'grey';
+        } else {
+            document.querySelector('.btn-solenoid-2-off').style.backgroundColor = 'red';
+            document.querySelector('.btn-solenoid-2-on').style.backgroundColor = 'grey';
+        }
+    });
+
+    // UPDATE FANf
+    function updateCentrifugalFanStatus(fanStatus) {
+        const updates = {};
+        updates[`/monitor/centrifugalFan/status`] = fanStatus;
+        update(dbRef, updates);
     }
-});
+    document.querySelector('.btn-fan-on').addEventListener('click', function () {
+        document.querySelector('.animation').style.display = 'block';
+        updateCentrifugalFanStatus(1);
+    })
+    document.querySelector('.btn-fan-off').addEventListener('click', function () {
+        document.querySelector('.animation').style.display = 'none';
+        updateCentrifugalFanStatus(0);
+    })
 
-function submitTimes() {
-    if (startTime && endTime) {
-        let startHour = startTime.getHours();
-        let startMinute = startTime.getMinutes();
-        let endHour = endTime.getHours();
-        let endMinute = endTime.getMinutes();
+    //UPDATE DAMPER
+    function updateDamperStatus(damperStatus) {
+        const updates = {};
+        updates[`/monitor/damper/status`] = damperStatus;
+        update(dbRef, updates);
+    }
+    document.querySelector('.btn-damper-on').addEventListener('click', function () {
+        updateDamperStatus(1);
+    })
+    document.querySelector('.btn-damper-off').addEventListener('click', function () {
+        updateDamperStatus(0);
+    })
 
+    // UPDATE SOLENOID VALVE 1
+    function updateSolenoidValve1Status(solenoidValve1Status) {
+        const updates = {};
+        updates[`/monitor/solenoidValve-1/status`] = solenoidValve1Status;
+        update(dbRef, updates);
+    }
+    document.querySelector('.btn-solenoid-1-on').addEventListener('click', function () {
+        updateSolenoidValve1Status(1);
+    })
+    document.querySelector('.btn-solenoid-1-off').addEventListener('click', function () {
+        updateSolenoidValve1Status(0);
+    })
 
-        let startTimeInMinutes = startHour * 60 + startMinute;
-        let endTimeInMinutes = endHour * 60 + endMinute;
+    // UPDATE SOLENOID VALVE 2
+    function updateSolenoidValve2Status(solenoidValve2Status) {
+        const updates = {};
+        updates[`/monitor/solenoidValve-2/status`] = solenoidValve2Status;
+        update(dbRef, updates);
+    }
+    document.querySelector('.btn-solenoid-2-on').addEventListener('click', function () {
+        updateSolenoidValve2Status(1);
+    })
+    document.querySelector('.btn-solenoid-2-off').addEventListener('click', function () {
+        updateSolenoidValve2Status(0);
+    })
+    // UPDATE BYPASS VALVE
+    function updateBypassValue(bypassValue) {
+        const updates = {};
+        updates[`/monitor/bypassValve/value`] = bypassValue;
+        update(dbRef, updates);
+    }
+    const bypassForm = document.querySelector('.bypass-form')
+    bypassForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        console.log('submit clicked');
+        const bypassValue = parseInt(document.querySelector('.bypass-value').value);
+        console.log(`bypass value: ${bypassValue}`);
 
-
-
-        if (endTimeInMinutes > startTimeInMinutes) {
+        if (bypassValue <= 100 && bypassValue >= 0) {
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Your work has been saved",
+                title: "Your value has been saved",
                 showConfirmButton: false,
                 timer: 1500
             });
-
-            const updates = {};
-            updates[`/control/start-time`] = startTimeInMinutes;
-            updates[`/control/end-time`] = endTimeInMinutes;
-
-            update(dbRef, updates);
+            updateBypassValue(bypassValue);
         } else {
             Swal.fire({
                 position: "top-end",
-                icon: "error",
-                title: "End time must be later than start time",
+                icon: "warning",
+                title: "Please select both start and end times",
                 showConfirmButton: false,
                 timer: 1500
             });
         }
-    } else {
-        Swal.fire({
-            position: "top-end",
-            icon: "warning",
-            title: "Please select both start and end times",
-            showConfirmButton: false,
-            timer: 1500
-        });
-    }
+    })
 }
 
-// SUBMIT START-TIME AND END-TIME
-pickrForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    submitTimes();
+// ===================================== SELECT AUTO AND MANUAL ================================================
+
+onValue(autoModeRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data === 1) {
+        autoMode();
+    } else {
+        clearInterval(autoModeSetInterval);
+        manualMode();
+    }
 });
-
-// READ START-TIME
-
-var startTimeInMinutes;
-let endTimeInMinutes;
-
-
-setInterval(() => {
-    get(child(dbRef, `/control/start-time`)).then((startTimeSnapShot) => {
-        if (startTimeSnapShot.exists()) {
-            get(child(dbRef, `/control/end-time`)).then((endTimeSnapShot) => {
-                if (endTimeSnapShot.exists()) {
-                    startTimeInMinutes = startTimeSnapShot.val();
-                    endTimeInMinutes = endTimeSnapShot.val();
-
-                    // get current hour
-                    var now = new Date();
-                    var currentHour = now.getHours();
-                    var currentMinute = now.getMinutes();
-                    var currentTimeInMinutes = currentHour * 60 + currentMinute;
-                    console.log(currentTimeInMinutes);
-
-                    if (currentTimeInMinutes >= startTimeInMinutes && currentTimeInMinutes <= endTimeInMinutes) {
-                        // turn on fan
-                        const updates = {};
-                        updates[`/monitor/centrifugalFan/status`] = 1;
-                        update(dbRef, updates);
-                    } else {
-                        // turn off fan
-                        const updates = {};
-                        updates[`/monitor/centrifugalFan/status`] = 0;
-                        updates[`/monitor/bypassValve/status`] = 1;
-                        updates[`/monitor/damper/status`] = 0;
-                        updates[`/monitor/solenoidValve-1/status`] = 0;
-                        updates[`/monitor/solenoidValve-2/status`] = 0;
-                        update(dbRef, updates);
-                    }
-
-                } else {
-                    console.log("No data available");
-                }
-            }).catch((error) => {
-                console.error(error);
-            });
-        } else {
-            console.log("No data available");
-        }
-    }).catch((error) => {
-        console.error(error);
-    });
-}, 1000);
-
-
-
